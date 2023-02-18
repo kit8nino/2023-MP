@@ -1,0 +1,41 @@
+import datetime
+import queue
+
+my_data = ("Капелюха Маргарита Олеговна", 30, 12, 2003)
+attest = {"алгебра": 5, "геометрия": 5}
+family_names = {'Олег', 'Оксана')
+kiva_name = 'Кошмар'
+
+#for key in attest.values():
+ #   sum_mark += val
+
+mean_mark = sum(attest.values())/len(attest)
+print (mean_mark)
+
+#uni_names = []
+#for name in family_names:
+ #   if name in uni_names:
+  #      continue
+   # else:
+    #    uni_names.append(name)
+#print (uni_names)
+
+print(*set(family_names))
+
+#print(bin(ord(kiva_name[0])))
+
+print(*bytearray(kiva_name, 'utf-8'))
+
+
+date = datetime.datetime.today()
+date_birth = datetime.datetime(day=my_data[1], month=my_data[2], year=my_data[3])
+print((date-date_birth).days)
+
+stuff = queue.Queue()
+while ind != -1:
+    #очередь
+    ind = int(input())
+    
+    
+    
+
