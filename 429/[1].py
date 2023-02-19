@@ -1,4 +1,3 @@
-import numpy as np
 import datetime as dt
 import queue
 import random
@@ -112,26 +111,4 @@ if(i>len(family_names)):
 family_names[i]=name
 print(family_names)
 
-# the end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+# the end 
