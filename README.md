@@ -7,7 +7,7 @@
 
 Работа с блокнотами онлайн, с возможностью подключения удалённых мощностей гугла (GPU, TPU): https://colab.research.google.com/
 
-Таблица, где я буду отмечать сданные работы: https://docs.google.com/spreadsheets/d/1ukuncwEtZQ2gwp6FhGD3waF9M96D4eBTSghJeSzotjg/edit?usp=sharing
+Таблица, где я буду отмечать сданные работы: [2023-Методы программирования](https://docs.google.com/spreadsheets/d/17a9KA1CZPBQo3aQsmiOf-q30qFUKU4Uqg-1m42D8-P0/edit?usp=sharing)
 
 Сервер в Дискорд, где буду дублировать: https://discord.gg/MzPkCYf4Dh (получить роль в канале "Основной") Мой контакт: nsmorozov@rf.unn.ru
 
