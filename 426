@@ -1,0 +1,74 @@
+from datetime import datetime
+import queue
+
+
+my_data = ("Панова Кристина Андреевна", 1, 11, 2002)
+    
+marks = {
+            "физра": 4,
+            "география": 4,
+            "геометрия": 4,
+            "информатика": 4,
+            "аглебра": 5,
+            "физика" : 4,
+            "английский язык" : 5,
+            "биология" : 5,
+            "история России" : 5,
+            "всеобщая история" : 5,
+            "русский язык" : 4,
+            "химия" : 4,
+            "обществознание" : 4,
+            "литература" : 4
+            }
+family_names = ["Ирина", "Андрей", "Надежда", "Алексей", "Наталья", "Павел"]
+kiwa_name = 'даздраперма'
+
+
+
+##1##
+average_mark = sum(marks.values())/len(marks.values())
+print("1.Средняя оценка в аттестате:", average_mark)
+
+##2##
+unique_names = list(set(family_names))
+print("2.Уникальные имена среди родственников:", unique_names)
+
+##3##
+total_length = sum([len(marks) for marks in marks.keys()])
+print(f"Общая длина всех названий предметов: {total_length}")
+
+##4##
+unique_letters = set()
+for marks in marks.keys():
+    for letter in marks:
+        unique_letters.add(letter)
+print(f"Уникальные буквы в названиях предметов: {', '.join(unique_letters)}")
+
+##5##
+binary_name = ''.join(format(ord(letter), '08b') for letter in kiwa_name)
+print(f"Имя пушистой кивы в бинарном виде: {binary_name}")
+
+##6##
+family_names.sort(reverse=True)
+print("6.Отсортированный по алфавиту (в обратном порядке) список родственников:", family_names)
+
+##7##
+print("7.Количество дней от даты рождения до текущей даты: {}".format((datetime.now() - datetime(day=int(my_data[1]), month=int(my_data[2]), year=int(my_data[3]))).days))
+
+##8##
+q = queue.Queue()
+print('   Чтобы прекратить ввод нажмите Enter: ')
+for i in list(marks):
+    q.put(i)
+while True:
+    subject = input('   ')
+    if subject == '':
+        break
+    else:
+        q.put(subject)
+print("8. FIFO очередь из всех предметов: ")
+while True:
+    print(q.get(), end=', ')
+    if q.empty()==True:
+        break
+print('\n')
