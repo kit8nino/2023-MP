@@ -14,12 +14,13 @@ import numpy as np
 import re
 import codecs
 
+
 #####***************************************************************************************#####
 print('\t','******** СОРТИРОВКА ВЫБОРОМ ********','\n')
 #ищем максимальный элемент в неотсортированном массиве,найденный максимум меняем местами
 #с последним элементом,повторяем алгоритм
 Number_list=[]
-for i in range(1000):
+for i in range(1000000):
     Number_list.append(i)
 random.shuffle(Number_list)
 print('Исходный список:\n',Number_list,'\n')
@@ -42,7 +43,7 @@ print('\t','******** ГНОМЬЯ СОРТИРОВКА ********','\n')
 #обмен может породить новую пару, стоящую в неправильном порядке
 
 #с помощь функции uniform получим равномерное распределение
-Number_list=np.random.uniform(-1,1,(1000))
+Number_list=np.random.uniform(-1,1,(1000000))
 print('Исходный список:\n',Number_list,'\n')
 lenght=len(Number_list)
 i=1
@@ -69,7 +70,7 @@ R=12.5
 MAX=(R**(2)/2)**(0.5)
 print('Модуль комплексного числа R<=',MAX,'\n')
 complex_list=[]
-for i in range(1000):
+for i in range(42000):
     Re=np.random.uniform(-MAX,MAX)
     Im=np.random.uniform(-MAX,MAX)
     complex_list.append(complex(Re,Im))
