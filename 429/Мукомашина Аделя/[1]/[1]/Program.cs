@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;
@@ -125,7 +126,7 @@ else
 }
 
 //10
-var relatives = new Dictionary<string, string>();
+var relatives = new Dictionary<string, DateTime>();
 string name_member_of_family;
 DateTime userDateTime;
 do
@@ -136,10 +137,11 @@ do
     {
         Console.WriteLine("Введите дату рождения родственника: ");
         DateTime.TryParse(Console.ReadLine(), out userDateTime);
-        relatives[name_member_of_family] = userDateTime.ToShortDateString();
+        relatives[name_member_of_family] = userDateTime;
     }
     else
     {
+        relatives = relatives.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         Console.WriteLine("Вы остановили ввод родственников. Словарь родственников:  ");
         foreach (var name in relatives) Console.WriteLine(name);
     }
