@@ -125,11 +125,15 @@ print('--------------------------------')
 print("11)функцию-генератор, вариант определяется как number = len(ФИО) * len (family_names) % 4:)")
 numberr=len(my_data[0]) * len (family_names) % 4
 print(numberr,'-Номер, получившийся по формуле - Последовательность Сильвестра:')
-x=[1,2]
-for j in range(1,10):
-    y=1
-    for i in range(len(x)):
-        y*=x[i]
-    x.append(y+1)
-print(x)
+def gen(N):
+    c=1
+    a=1
+    while c!=10:
+        c+=1
+        yield a+1
+        a+=1
+        a=a*(a-1)
+N=10
+for b in gen(N):
+    print(b)
 print(numberr)
