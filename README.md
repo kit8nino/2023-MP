@@ -1,7 +1,7 @@
 # 2023-MP
 ННГУ, методы программирования, практика по курсу 2023 года
 
-Презентация по курсу (обновляемая): https://docs.google.com/presentation/d/1wmYjy5QDoYECEHi7NAAINPulU9pLsaIi-aLaUppspps/edit?usp=sharing
+[Презентация по курсу (обновляемая)](https://docs.google.com/presentation/d/1wmYjy5QDoYECEHi7NAAINPulU9pLsaIi-aLaUppspps/edit?usp=sharing}
 
 Для работы необходим python 3.9 и выше. Библиотеки: numpy, pandas, matplotlib, tensorflow, Pillow, scipy.signal. Редактор любой. Из неплохих: IDLE (родной, идёт вместе с установщиком), Visual Studio Code, notepad++, PyCharm, vim (для любителей сначала страдать, потом наслаждаться).
 
