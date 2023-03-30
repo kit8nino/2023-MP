@@ -22,9 +22,10 @@ disc_marks = {
 family_names = ["Дима", "Илья", "Елена", "Анна", "Андрей", "Алексей", "Сергей", "Татьяна", "Татьяна", "Полина", "Алина"]
 kiwa_name = "Афина"
 
+
 # 1. средняя оценка
 average_mark = sum(disc_marks.values()) / len(disc_marks.values())
-print("average maks is ", average_mark)
+print("средняя оценка: ", average_mark)
 
 
 # 2. уникальные имена среди своих родственников (включая свое)
@@ -34,11 +35,10 @@ for name in family_names:
     if name not in unique_names:
         unique_names.append(name)
         modified_family_names.append(name)
+print("уникальные имена среди родственников: ", *modified_family_names)
 
-print(*modified_family_names)
 
-
-# 3-4.общая длина всех названий предметов и уникальные буквы в названиях предметов
+# 3-4.общая длина всех названий предметов и общая длина всех названий предметов
 len_of_subjects = 0
 unique_letters = []
 for subject in disc_marks:
@@ -47,11 +47,12 @@ for subject in disc_marks:
         if letter in unique_letters:
             continue
         unique_letters.append(letter)
-print("length of subjects is", len_of_subjects)
-print("Unique letters: ", *unique_letters)
+print("общая длина всех названий предметов: ", len_of_subjects)
+print("общая длина всех названий предметов: ", *unique_letters)
 
 
 # 5. имя в бинарном виде
+print("имя в бинарном виде: ")
 for ch in bytearray(kiwa_name, 'utf-8'):
     print(bin(ch))
 
@@ -66,27 +67,28 @@ print(*unique_names)
 my_birthday_date = datetime.date(2003, 1, 4)
 current_date = datetime.date.today()
 number_of_days = current_date-my_birthday_date
-print("number of days since I was born ", number_of_days.days)
+print("количество дней от даты моего рождения:  ", number_of_days.days)
 
 
 # 8. FIFO очередь
 queue = queue.Queue()
 while True:
-    element = input("Enter an element of FIFO(enter out to exit) ")
+    element = input("Введите элемент очереди(out для вывода) ")
     if element == "out":
-        print("Elements: ")
+        print("Элементы очереди: ")
         while not queue.empty():
             print(queue.get())
         break
     else:
         queue.put(element)
 
+
 # 9. замена имени в отсортированном списке родственников на имя ацтекского правителя
 day = my_data[1]
 month = my_data[2]
 year = my_data[3]
 number_of_aztec = (day + month**2 + year) % 21 + 1
-number = int(input("Enter a number to change any any relatives name to aztec name"))
+number = int(input("Введите номер для замены имени родственника на имя ацтека: "))
 aztec_rulers = ["Huitzilihuitl", "Chimalpopoca", "Xihuitl Temoc", "Acamapichtli", "Tenoch", "Itzcoatl", "Moctezuma I",
                 "Atotoztli", "Axayacatl", "Tizoc", "Ahuitzotl", "Moctezuma II", "Cuitláhuac", "Cuauhtémoc",
                 "Motelchiuhtzin", "Xochiquentzin", "Huanitzin", "Tehuetzquititzin", "Cecetzin", "Cipac"]
@@ -94,28 +96,33 @@ unique_names[number] = aztec_rulers[number_of_aztec]
 print(*unique_names)
 
 
+# 10. связный список
+# linked_family_list = {"Дима"[0], "Илья"[1], "Елена"[2], "Анна"[3], "Андрей"[4], "Алексей"[5], "Сергей"[6], "Татьяна"[7],
+#                       "Татьяна"[8], "Полина"[9], "Алина"}
+#
+# print(linked_family_list)
+
+
 # 11. Генератор
-number_of_generator = len(my_data[0]) * len(family_names) % 4
-print("Generator number ", number_of_generator)
-N = int(input("Enter count of tribonacci number "))
+number_of_generator = (len(my_data[0]) * len(family_names)) % 4
+print("Номер генератора: ", number_of_generator)
+N = int(input("Введите кол-во чисел трибоначчи: "))
 
 
 def tribonacci(n):
-    t = [0, 0, 1]
+    t1 = 0
+    t2 = 0
+    t3 = 1
     for a in range(n):
-        c = t[a+2]+t[a+1]+t[a]
-        t.append(c)
+        c = t1+t2+t3
+        t1 = t2
+        t2 = t3
+        t3 = c
         yield c
 
 
-def tribonacci_demo(n):
-    t = [0, 0, 1]
-    for a in range(n):
-        t.append(t[a+2]+t[a+1]+t[a])
-    return t
+tri = tribonacci(N)
+for i in tri:
+    print(i, end=" ")
 
-
-tri = []
-print(tri.append(tribonacci(N)))
-print(tribonacci_demo(N))
-# 10  11?
+# 10
