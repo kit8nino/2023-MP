@@ -84,10 +84,10 @@ print("\n")
 
 ###
 arr = []
-a = int(input("Введите число (для выхода введите 00): "))
-while a != 00:
+a = (input("Введите число (для выхода введите 00): "))
+while a != '00' :
     arr.append(a)
-    a = int(input("Введите число (для выхода введите 00): "))
+    a = (input("Введите число (для выхода введите 00): "))
 for i in arr:
     print(i)
 ###
@@ -95,27 +95,45 @@ for i in arr:
 print("\n")
 
 ###
+
 ind = int(input("Введите индекс (от 1 до 4): "))
 Names[ind-1] = "Cuitláhuac"
 #number = (date1.day + date1.month**2 + date1.year) % 21 + 1
 #print(number) # 13
 print(Names)
+
 ###
 
 
+l = {"Татьяна" : 1980 , "Владимир" :  1972, "Дарья" : 2011}
+
+l_sorted = sorted(l.items(), key = lambda x: x[1])
+
+linked_list = {}
+for i in range(len(l_sorted)):
+    if i == len(l_sorted) - 1:
+        linked_list[l_sorted[i][0]] = None
+    else:
+        linked_list[l_sorted[i][0]] = l_sorted[i+1][0]
+
+print("\nСвязный список: ", linked_list)
+
+###
 
 
-'''
-class NameS:
-    def _init_(self, name):
-        self.name = name
-        self.next = None
-    def append(self,names):
-        end = NameS(names)
-        point = self
-        while (point.next):
-            point = point.next
-        point.next = end
-one = NameS("Владимир")
-print(one)
-'''
+Names = ["Татьяна", "Владимир", "Владислав", "Дарья"]
+
+#number = len("Зайцев Владислав Владимирович") * len (Names) % 4    ## 0
+
+n = int(input("\nВведите число для построения аликвотной последовательности: "))
+
+posled = []
+
+for i in range(1,n):
+    if n % i == 0:
+        posled.append(i)
+        
+print(posled)
+               
+
+
