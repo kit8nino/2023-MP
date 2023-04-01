@@ -17,10 +17,10 @@ rnd.shuffle(arr_N)
 # №2 список из (почти) 99999 случайных вещественных чисел в диапазоне [-1, 1]
 for i in range(-1000, 1000):
     arr_R.append(i / 1000)
-print(arr_R)
 rnd.shuffle(arr_R)
 
 
+# Сортировка вставками
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
@@ -32,6 +32,7 @@ def insertion_sort(arr):
     return arr
 
 
+# Быстрая сортировка
 def quick_sort(arr, low, high):
     if low >= high:
         return
@@ -52,4 +53,32 @@ def quick_sort(arr, low, high):
                 quick_sort(arr, i, high)
 
 
-print(quick_sort(arr_R, 0, len(arr_R) - 1))
+# Битонная сортировка
+def bitonic_sort(arr):
+    mid = len(arr) // 2
+    first = bitonic_sort(arr[:mid])
+    second = bitonic_sort(arr[mid:])
+    arr = bitonic_merge(first + second)
+    return arr
+
+
+def bitonic_merge(arr):
+    bitonic_compare(arr)
+    mid = len(arr) // 2
+    first = bitonic_merge(arr[:mid])
+    second = bitonic_merge(arr[mid:])
+    arr = first + second
+    return arr
+
+
+def bitonic_compare(arr):
+    dist = len(arr) // 2
+    for i in range(dist):
+        if arr[i] > arr[i + dist]:
+            arr[i], arr[i + dist] = arr[i + dist], arr[i]
+
+
+arr1 = [3, 7, 4, 8, 6, 2, 1, 5]
+
+print(bitonic_sort(arr_N))
+# print(quick_sort(arr_R, 0, len(arr_R) - 1))
