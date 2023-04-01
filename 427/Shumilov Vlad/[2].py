@@ -54,31 +54,38 @@ def quick_sort(arr, low, high):
 
 
 # Битонная сортировка
-def bitonic_sort(arr):
-    mid = len(arr) // 2
-    first = bitonic_sort(arr[:mid])
-    second = bitonic_sort(arr[mid:])
-    arr = bitonic_merge(first + second)
-    return arr
+up = True   # Флаг указывает на направление сортировки
 
 
-def bitonic_merge(arr):
-    bitonic_compare(arr)
-    mid = len(arr) // 2
-    first = bitonic_merge(arr[:mid])
-    second = bitonic_merge(arr[mid:])
-    arr = first + second
-    return arr
+def bitonic_sort(arr, up):
+    if len(arr) <= 1:
+        return arr
+    else:
+        mid = len(arr) // 2
+        first = bitonic_sort(arr[:mid], True)
+        second = bitonic_sort(arr[mid:], False)
+        arr = bitonic_merge(first + second, up)
+        return arr
 
 
-def bitonic_compare(arr):
+def bitonic_merge(arr, up):
+    if len(arr) <= 1:
+        return arr
+    else:
+        bitonic_compare(arr, up)
+        mid = len(arr) // 2
+        first = bitonic_merge(arr[:mid], up)
+        second = bitonic_merge(arr[mid:], up)
+        arr = first + second
+        return arr
+
+
+def bitonic_compare(arr, up):
     dist = len(arr) // 2
     for i in range(dist):
-        if arr[i] > arr[i + dist]:
+        if (arr[i] > arr[i + dist]) == up:
             arr[i], arr[i + dist] = arr[i + dist], arr[i]
 
 
-arr1 = [3, 7, 4, 8, 6, 2, 1, 5]
-
-print(bitonic_sort(arr_N))
+print(bitonic_sort(arr_N, up))
 # print(quick_sort(arr_R, 0, len(arr_R) - 1))
