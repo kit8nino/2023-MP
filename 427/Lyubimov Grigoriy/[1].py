@@ -106,7 +106,7 @@ print(linked_family_list)
 # 11. Генератор
 number_of_generator = (len(my_data[0]) * len(family_names)) % 4
 print("Номер генератора: ", number_of_generator)
-N = int(input("Введите кол-во чисел трибоначчи: "))
+N = int(input("Введите кол-во чисел трибоначчи(начиная с 3-его): "))
 
 
 def tribonacci(n):
