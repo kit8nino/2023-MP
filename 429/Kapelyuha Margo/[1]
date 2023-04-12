@@ -1,0 +1,35 @@
+personal_data = ("Капеоюха Маргарита Олеговна", 30, 12, 2003)
+certificate = {"алгебра": 5, "геометрия": 5, "информатика": 5, "русский язык": 5, "литература": 5, "физика": 5, "биология": 5, "химия": 5, "география": 5, "история России": 5, "обществознание": 5, "физкультура": 5, "всеобщая история": 5, "астрономия": 5}
+family = ['Олег', 'Оксана', 'Сергей', 'Елена', 'Евгений', 'Сергей', 'Дмитрий', 'Валентина', 'Генадий', 'Лариса']
+kiwa_name = "Кошмар"
+
+aver_mark = sum(certificate.values())/len(certificate)
+print ("Средняя оценка в аттестате:", aver_mark)
+
+uniq_names = []
+for name in family:
+    if name not in uniq_names:
+        uniq_names.append(name)
+print ("Уникальные имена среди родственников:", uniq_names)
+
+s_subj = 0
+uniq_letter = []
+for key in certificate:
+    s_subj += len(key)
+    for let in key:
+        if let not in uniq_letter:
+            uniq_letter.append(let)
+print ("Сумма длинн названий предметов:", s_subj)
+print ("Уникальные буквы в названиях предметов:", uniq_letter)
+
+bin_name = ''
+for let in kiwa_name:
+    bin_name += format(ord(let), '08b')
+print ("Имя пушистой кивы в бинарном виде:", bin_name)
+
+
+for i in range(len(family)-1):
+    for j in range(len(family)-i-1):
+        if ord(family[j][0])<ord(family[j+1][0]):
+            family[j], family[j+1] = family[j+1], family[j]
+print ("Отсортированный список родственников:", family)
