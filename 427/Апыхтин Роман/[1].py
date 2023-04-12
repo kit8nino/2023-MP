@@ -116,7 +116,7 @@ print(f"Имя ацтекского правителя по моей дате р
 index = int(input("Введите индекс родственника: "))
 if index < len(sorted_relatives) and index >= 0:
     name_parts = sorted_relatives[index].split()
-    name_parts[0] = f"{aztec[number-1]}"
+    name_parts[0] = f"{number_m}"
     sorted_relatives[index] = " ".join(name_parts)
     print(f"Измененный список родственников: {', '.join(sorted_relatives)}\n")
 else:
