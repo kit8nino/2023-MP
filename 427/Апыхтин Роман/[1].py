@@ -62,8 +62,8 @@ print(f"Имя вашей домашней пушистой кивы в бина
 
 # 6) Отсортированный по алфавиту (в обратном порядке) список родственников
 print("6 Задание:")
-sorted_relatives = sorted(relatives_names, reverse=True)
-print(f"Отсортированный по алфавиту (в обратном порядке) список родственников: {', '.join(sorted_relatives)}\n")
+sorted_inv = sorted(relatives_names, reverse=True)
+print(f"Отсортированный по алфавиту (в обратном порядке) список родственников: {', '.join(sorted_inv)}\n")
 
 # 7. количество дней от даты рождения до текущей даты
 print("7 Задание:")
@@ -114,11 +114,11 @@ number_m = f"{aztec[number-1]}"
 print(f"Имя ацтекского правителя по моей дате рождения: {number_m}")
 
 index = int(input("Введите индекс родственника: "))
-if index < len(sorted_relatives) and index >= 0:
-    name_parts = sorted_relatives[index].split()
+if index < len(sorted_inv) and index >= 0:
+    name_parts = sorted_inv[index].split()
     name_parts[0] = f"{number_m}"
-    sorted_relatives[index] = " ".join(name_parts)
-    print(f"Измененный список родственников: {', '.join(sorted_relatives)}\n")
+    sorted_inv[index] = " ".join(name_parts)
+    print(f"Измененный список родственников: {', '.join(sorted_inv)}\n")
 else:
     print("Индекс вне диапазона длины списка родственников.\n")
 
