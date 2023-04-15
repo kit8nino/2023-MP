@@ -1,3 +1,5 @@
+import datetime as dt
+
 personal_data = ("Капеоюха Маргарита Олеговна", 30, 12, 2003)
 certificate = {"алгебра": 5, "геометрия": 5, "информатика": 5, "русский язык": 5, "литература": 5, "физика": 5, "биология": 5, "химия": 5, "география": 5, "история России": 5, "обществознание": 5, "физкультура": 5, "всеобщая история": 5, "астрономия": 5}
 family = ['Олег', 'Оксана', 'Сергей', 'Елена', 'Евгений', 'Сергей', 'Дмитрий', 'Валентина', 'Генадий', 'Лариса']
@@ -7,7 +9,9 @@ aver_mark = sum(certificate.values())/len(certificate)
 print ("Средняя оценка в аттестате:", aver_mark)
 
 uniq_names = []
-for name in family:
+fam_and_i = family.copy()
+fam_and_i.append(personal_data[0].split(' ')[1])
+for name in fam_and_i:
     if name not in uniq_names:
         uniq_names.append(name)
 print ("Уникальные имена среди родственников:", uniq_names)
@@ -30,6 +34,25 @@ print ("Имя пушистой кивы в бинарном виде:", bin_nam
 
 for i in range(len(family)-1):
     for j in range(len(family)-i-1):
-        if ord(family[j][0])<ord(family[j+1][0]):
+        k = 0
+        while family[j][k]==family[j+1][k] and k!=(len(family[j])-1):
+            k += 1
+        if ord(family[j][k])<ord(family[j+1][k]):
             family[j], family[j+1] = family[j+1], family[j]
 print ("Отсортированный список родственников:", family)
+
+born_date = dt.date(int(personal_data[3]),int(personal_data[2]),int(personal_data[1]))
+current_date = dt.date.today()
+amount_days = current_date-born_date
+print("Количество прожитых дней:", str(amount_days).split(' ')[0])
+
+number = (int(personal_data[1])+int(personal_data[2])**2+int(personal_data[3]))%21+1
+tlatoque = ['Tenoch', 'Acamapichtli', 'Huitzilihuitl', 'Chimalpopoca', 'Xihuitl Temoc', 'Itzcoatl', 'Moctezuma I', 'Atotoztli', 'Axayacatl', 'Tizoc', 'Ahuitzotl', 'Moctezuma II', 'Cuitláhuac', 'Cuauhtémoc', 'Tlacotzin', 'Motelchiuhtzin', 'Xochiquentzin', 'Huanitzin', 'Tehuetzquititzin', 'Cecetzin', 'Cipac']
+print("Введите индекс от 0 до", len(family)-1)
+ind = int(input())
+if ind<0 or ind>=len(family):
+    print("Пожалуйста, введите индекс от 0 до", len(family)-1)
+    ind = int(input())
+else:
+    family[ind]=tlatoque[number-1]
+    print(family)
