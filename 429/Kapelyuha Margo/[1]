@@ -1,4 +1,5 @@
 import datetime as dt
+import queue as qu
 
 personal_data = ("Капеоюха Маргарита Олеговна", 30, 12, 2003)
 certificate = {"алгебра": 5, "геометрия": 5, "информатика": 5, "русский язык": 5, "литература": 5, "физика": 5, "биология": 5, "химия": 5, "география": 5, "история России": 5, "обществознание": 5, "физкультура": 5, "всеобщая история": 5, "астрономия": 5}
@@ -46,9 +47,18 @@ current_date = dt.date.today()
 amount_days = current_date-born_date
 print("Количество прожитых дней:", str(amount_days).split(' ')[0])
 
+items = qu.Queue()
+print ("Для прекращения ввода введите q")
+subj = input()
+while subj!='q':
+    items.put(subj)
+    subj = input()
+while not items.empty():
+    print (items.get(), end = ' ')
+
 number = (int(personal_data[1])+int(personal_data[2])**2+int(personal_data[3]))%21+1
 tlatoque = ['Tenoch', 'Acamapichtli', 'Huitzilihuitl', 'Chimalpopoca', 'Xihuitl Temoc', 'Itzcoatl', 'Moctezuma I', 'Atotoztli', 'Axayacatl', 'Tizoc', 'Ahuitzotl', 'Moctezuma II', 'Cuitláhuac', 'Cuauhtémoc', 'Tlacotzin', 'Motelchiuhtzin', 'Xochiquentzin', 'Huanitzin', 'Tehuetzquititzin', 'Cecetzin', 'Cipac']
-print("Введите индекс от 0 до", len(family)-1)
+print("\nВведите индекс от 0 до", len(family)-1)
 ind = int(input())
 if ind<0 or ind>=len(family):
     print("Пожалуйста, введите индекс от 0 до", len(family)-1)
