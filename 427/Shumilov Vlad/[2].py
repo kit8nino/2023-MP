@@ -19,6 +19,25 @@ for i in range(-1000, 1000):
     arr_R.append(i / 1000)
 rnd.shuffle(arr_R)
 
+# №3 42000 разных точки комплексной плоскости, лежащие внутри окружности радиуса r
+
+r = rnd.random() * 23 / 7
+n = 10
+fi = 2 * np.pi / n
+arr_C = []
+for i in range(n):
+    Im = r * np.sin(i * fi)
+    Re = r * np.cos(i * fi)
+    arr_C.append((Re, Im))
+
+arr_C_abs = []
+for item in arr_C:
+    res = 0
+    for i in item:
+        res += i ** 2
+    arr_C_abs.append(np.sqrt(res))
+
+# №4 отрывок из книги
 
 # Сортировка вставками
 def insertion_sort(arr):
