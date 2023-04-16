@@ -1,8 +1,7 @@
 import random
 
-
-# random.sample(range(1, 18), 4) Вернул [2, 10, 16, 17]
-
+# [1, 2, 9, 10]
+test_list = [2 + 5j, 3 + 1j, 0 + 7j, 8+0j]
 # Исходные данные
 list_of_int_numbers = list(range(0, 100000))
 
@@ -27,7 +26,7 @@ with open("lord_of_the_rings.txt", encoding="utf-8") as book:
         list_of_words.append(d)
 
 
-# bubble sort, сортировка пузырьком
+# 2.bubble sort, сортировка пузырьком
 def bubble_sort(a):
     index = True
     while index:
@@ -40,11 +39,11 @@ def bubble_sort(a):
                 index = True
 
 
-bubble_sort(list_of_int_numbers)
-# print(list_of_int_numbers)
+# bubble_sort(list_of_int_numbers)
+# # print(list_of_int_numbers)
 
 
-# Quicksort, быстрая сортировка
+# 10.Quicksort, быстрая сортировка
 def quicksort(a):
     right_list = []
     left_list = []
@@ -62,12 +61,39 @@ def quicksort(a):
     return quicksort(left_list) + midl_list + quicksort(right_list)
 
 
-list_of_random_numbers = quicksort(list_of_random_numbers)
-# print(list_of_random_numbers)
+# list_of_random_numbers = quicksort(list_of_random_numbers)
+# # print(list_of_random_numbers)
 
 
-# most significant digit
-# ??????
+# 1.shaker sort, сортировка перемешиванием
+def shaker_sort(a):
+    index = True
+    while index:
+        index = False
+        start = 0
+        end = len(a)-1
+        for i in range(start, end):
+            if abs(a[i]) > abs(a[i+1]):
+                c = a[i]
+                a[i] = a[i+1]
+                a[i+1] = c
+                index = True
+        end -= 1
+
+        for i in range(start, end):
+            if abs(a[end-i]) < abs(a[end-i-1]):
+                c = a[end-i]
+                a[end-i] = a[end-i - 1]
+                a[end-i - 1] = c
+                index = True
+        start += 1
 
 
-# bitonic sort, битонная сортировка
+# shaker_sort(list_of_complex_numbers)
+# print(list_of_complex_numbers)
+
+# В конечном итоге алогритм немного модифицирован. Так как сравнивать комлексные числа напрямую нельзя, приходится
+# сравнивать их модули(ну или можно было придумать какой-то другой критерий для сравнения)
+
+
+# 9.Heapsort, пирамидальная сортировка;
