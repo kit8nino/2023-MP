@@ -1,7 +1,6 @@
 import random
 
-# [1, 2, 9, 10]
-test_list = [2 + 5j, 3 + 1j, 0 + 7j, 8+0j]
+
 # Исходные данные
 list_of_int_numbers = list(range(0, 100000))
 
@@ -40,7 +39,7 @@ def bubble_sort(a):
 
 
 # bubble_sort(list_of_int_numbers)
-# # print(list_of_int_numbers)
+# print(list_of_int_numbers)
 
 
 # 10.Quicksort, быстрая сортировка
@@ -62,7 +61,7 @@ def quicksort(a):
 
 
 # list_of_random_numbers = quicksort(list_of_random_numbers)
-# # print(list_of_random_numbers)
+# print(list_of_random_numbers)
 
 
 # 1.shaker sort, сортировка перемешиванием
@@ -97,3 +96,53 @@ def shaker_sort(a):
 
 
 # 9.Heapsort, пирамидальная сортировка;
+def heap(a, i, up):
+    index = True
+    while index:
+        l = i*2+1
+        r = i*2+2
+        if max(l, r) < up:
+            if a[l] >= max(a[l], a[r]):
+                index = False
+            elif a[l] > a[r]:
+                c = a[i]
+                a[i] = a[l]
+                a[l] = c
+                i = l
+            else:
+                c = a[i]
+                a[i] = a[r]
+                a[r] = c
+                i = r
+        elif l < up:
+            if a[l] > a[i]:
+                c = a[i]
+                a[i] = a[l]
+                a[l] = c
+                i = l
+            else:
+                index = False
+        elif r < up:
+            if a[r] > a[i]:
+                c = a[i]
+                a[i] = a[r]
+                a[r] = c
+                i = r
+            else:
+                index = False
+        else:
+            index = False
+
+
+def heapsort(a):
+    for j in range((len(a)-1)//2, -1, -1):
+        heap(a, j, len(a))
+    for g in range(len(a)-1, 0, -1):
+        c = a[0]
+        a[0] = a[g]
+        a[g] = c
+        heap(a, 0, g)
+
+
+heapsort(list_of_words)
+print(list_of_words)
