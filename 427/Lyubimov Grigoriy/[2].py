@@ -22,7 +22,8 @@ list_of_words = []
 with open("lord_of_the_rings.txt", encoding="utf-8") as book:
     data = book.read().split()
     for d in data:
-        list_of_words.append(d)
+        if d != '–':
+            list_of_words.append(d)
 
 
 # 2.bubble sort, сортировка пузырьком
@@ -38,8 +39,8 @@ def bubble_sort(a):
                 index = True
 
 
-# bubble_sort(list_of_int_numbers)
-# print(list_of_int_numbers)
+bubble_sort(list_of_int_numbers)
+print("Sorted list_of_int_numbers: ", list_of_int_numbers)
 
 
 # 10.Quicksort, быстрая сортировка
@@ -60,8 +61,8 @@ def quicksort(a):
     return quicksort(left_list) + midl_list + quicksort(right_list)
 
 
-# list_of_random_numbers = quicksort(list_of_random_numbers)
-# print(list_of_random_numbers)
+list_of_random_numbers = quicksort(list_of_random_numbers)
+print("Sorted float: ", list_of_random_numbers)
 
 
 # 1.shaker sort, сортировка перемешиванием
@@ -88,46 +89,49 @@ def shaker_sort(a):
         start += 1
 
 
-# shaker_sort(list_of_complex_numbers)
-# print(list_of_complex_numbers)
+test_list_of_complex_numbers = [6j, 2+2j, 3+1j, 18]
+shaker_sort(test_list_of_complex_numbers)
+print("Sorted complex: ", test_list_of_complex_numbers)
 
 # В конечном итоге алогритм немного модифицирован. Так как сравнивать комлексные числа напрямую нельзя, приходится
 # сравнивать их модули(ну или можно было придумать какой-то другой критерий для сравнения)
+# для исходного массива из 42000 точек комплексной плоскости алгоритм работает очень долго(я не дождался его окончания)
+# поэтому привожу пример работы для тестового массива
 
 
 # 9.Heapsort, пирамидальная сортировка;
 def heap(a, i, up):
     index = True
     while index:
-        l = i*2+1
-        r = i*2+2
-        if max(l, r) < up:
-            if a[l] >= max(a[l], a[r]):
+        left = i*2+1
+        right = i*2+2
+        if max(left, right) < up:
+            if a[i] >= max(a[left], a[right]):
                 index = False
-            elif a[l] > a[r]:
+            elif a[left] > a[right]:
                 c = a[i]
-                a[i] = a[l]
-                a[l] = c
-                i = l
+                a[i] = a[left]
+                a[left] = c
+                i = left
             else:
                 c = a[i]
-                a[i] = a[r]
-                a[r] = c
-                i = r
-        elif l < up:
-            if a[l] > a[i]:
+                a[i] = a[right]
+                a[right] = c
+                i = right
+        elif left < up:
+            if a[left] > a[i]:
                 c = a[i]
-                a[i] = a[l]
-                a[l] = c
-                i = l
+                a[i] = a[left]
+                a[left] = c
+                i = left
             else:
                 index = False
-        elif r < up:
-            if a[r] > a[i]:
+        elif right < up:
+            if a[right] > a[i]:
                 c = a[i]
-                a[i] = a[r]
-                a[r] = c
-                i = r
+                a[i] = a[right]
+                a[right] = c
+                i = right
             else:
                 index = False
         else:
@@ -135,7 +139,7 @@ def heap(a, i, up):
 
 
 def heapsort(a):
-    for j in range((len(a)-1)//2, -1, -1):
+    for j in range((len(a)-2)//2, -1, -1):
         heap(a, j, len(a))
     for g in range(len(a)-1, 0, -1):
         c = a[0]
@@ -145,4 +149,4 @@ def heapsort(a):
 
 
 heapsort(list_of_words)
-print(list_of_words)
+print("Sorted book: ", list_of_words)
