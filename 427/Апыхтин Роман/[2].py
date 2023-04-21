@@ -58,10 +58,14 @@ print("БЫСТРАЯ СОРТИРОВКА: ")
 # элементы, меньшие опорного, и элементы, большие опорного, и рекурсивно сортируем каждую из этих частей.
 # создаем список из 42000 случайных точек комплексной плоскости, лежащих внутри окружности радиуса 4.67
 
+birth_day = 28
+birth_month = 6
+r = birth_day / birth_month
+
 points = []
-for i in range(42000):
-    real = random.uniform(-4.67, 4.67)
-    imag = random.uniform(-4.67, 4.67)
+for i in range(500):
+    real = random.uniform(-r, r)
+    imag = random.uniform(-r, r)
     point = complex(real, imag)
     points.append(point)
 
