@@ -93,6 +93,17 @@ def bitonic_sort(arr, up):
         first = bitonic_sort(arr[:mid], True)
         second = bitonic_sort(arr[mid:], False)
         arr = bitonic_merge(first + second, up)
+
+        # Приведение к биттонной последовательности
+
+        n = len(arr)
+        k = 1
+        while k < n:
+            for i in range(0, n - k, 2 * k):
+                arr[i:i + k] = bitonic_merge(arr[i:i + k], True)
+                arr[i + k:i + 2 * k] = bitonic_merge(arr[i + k:i + 2 * k], False)
+            k *= 2
+
         return arr
 
 
@@ -113,3 +124,5 @@ def bitonic_compare(arr, up):
     for i in range(dist):
         if (arr[i] > arr[i + dist]) == up:
             arr[i], arr[i + dist] = arr[i + dist], arr[i]
+
+print(bitonic_sort(arr_N))
