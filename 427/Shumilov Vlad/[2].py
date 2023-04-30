@@ -8,6 +8,8 @@ import numpy as np
 
 arr_N = []
 arr_R = []
+arr_C = []
+arr_C_abs = []
 
 # №1 список целых чисел от 0 до 999999 (ну почти)
 for i in range(1000):
@@ -24,13 +26,12 @@ rnd.shuffle(arr_R)
 r = rnd.random() * 23 / 7
 n = 10
 fi = 2 * np.pi / n
-arr_C = []
+
 for i in range(n):
     Im = r * np.sin(i * fi)
     Re = r * np.cos(i * fi)
     arr_C.append((Re, Im))
 
-arr_C_abs = []
 for item in arr_C:
     res = 0
     for i in item:
@@ -38,6 +39,14 @@ for item in arr_C:
     arr_C_abs.append(np.sqrt(res))
 
 # №4 отрывок из книги
+
+with open('A Journey to the Interior of the Earth', encoding='utf-8') as book:
+    text = book.read().lower()
+    words = text.split()
+for word in words:
+    if word == '—':
+        words.remove(word)
+
 
 # Сортировка вставками
 def insertion_sort(arr):
@@ -104,7 +113,3 @@ def bitonic_compare(arr, up):
     for i in range(dist):
         if (arr[i] > arr[i + dist]) == up:
             arr[i], arr[i + dist] = arr[i + dist], arr[i]
-
-
-print(bitonic_sort(arr_N, up))
-# print(quick_sort(arr_R, 0, len(arr_R) - 1))
