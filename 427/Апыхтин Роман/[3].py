@@ -109,7 +109,7 @@ maze_with_path[key_x][key_y] = '*'
 
 if path_to_key and path_to_exit:
     for x, y in path_to_key:
-        maze_with_path[x][y] = ','
+        maze_with_path[x][y] = '.'
     for x, y in path_to_exit:
         maze_with_path[x][y] = ','
     maze_with_path[len(maze) - 1][len(maze[0]) - 2] = 'E'#обозначение выхода
