@@ -101,6 +101,36 @@ def Mode9():    #Done
     print(familylist)
     return 1
 
+def Mode10(): #Done
+    #family_sorted=['Elena', 'Victor','Eudokia','Ivan', 'Michail','Roman','Aleksey','Ekaterina', 'Alexander',  'Ivan']
+    family_dict={'Elena':1,'Victor':2,'Eudokia':3,'Ivan':4, 'Michail':5,'Roman':6,'Aleksey':7,'Ekaterina':8, 'Alexander':9,  'Ivan':0}
+    print(family_dict)
+    return 1
+
+def Mode11():       #Done
+    number = len("Турченко Егор Иванович") * len(family) % 4
+    print('var:',number)
+    print('Аликвотная последовательность')
+    def get_divisors(number):
+        result = {1}
+        for divisor in range(2, number // 2 + 1):
+            if number % divisor == 0:
+                result.add(divisor)
+        return sorted(result)
+    test_number=678
+    n=test_number
+    maxiter=1000
+    i=0
+    while(1):
+        i+=1
+        n=sum(get_divisors(n))
+        print(n)
+        if n==1:
+            break
+        if i>maxiter:
+            break
+    return(1)
+
 
 def Menu(mode):
     if mode == 1:
@@ -121,6 +151,10 @@ def Menu(mode):
         Mode8()
     elif mode == 9:
         Mode9()
+    elif mode==10:
+        Mode10()
+    elif mode==11:
+        Mode11()
     else:
         return -1
 
@@ -128,8 +162,9 @@ def Menu(mode):
 output = 1
 while output != -1:
     print('')
-    print('Select mode 1-9')
+    print('Select mode 1-11')
     print('Type 0 to quit')
     mode=int(input())
     output = Menu(mode)
+
 
