@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="libs/bootstrap-reboot.min.css">
+
+	<!-- Bootstrap сетка -->
+	<link rel="stylesheet" href="libs/bootstrap-grid.min.css">
+	<!-- Стили сайта -->
+	<link rel="stylesheet" href="css.css">
+</head>
+
+<body>
+ <nav class="navbar">
+  <div class="container">
+<a href="#" class="navbar-brand;" onclick="showHeader()">   WarvikSongS</a>
+<div class="navbar-wrap">
+  <ul class="navbar-menu">
+    <li class="active"><a href="home.html">   Task1</a></li>
+    <li><a href="Photo.html">   Photo</a></li>
+    <li><a href="Sort.html">Sort</a></li>
+    <li><a href="My_playlist.html">My playlist</a></li>
+    <li><a href="maze.html">maze</a></li>
+  </ul>
+</div>
+<a href="#" class="callback">Связь со мной</a>
+  </div>
+ </nav>
+<div class="first" style="color: aqua;">
+
+
+  </div>
+
+</body>
+
+</html>
+<script>
+  function showHeader() {
+    
+    while (window.pageYOffset > 10) 
+    {
+      pageYOffset -=1;
+    }
+  }
+
+</script>

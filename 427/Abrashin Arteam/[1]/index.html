@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+
+	<link rel="stylesheet" href="css.css">
+</head>
+
+<body>
+
+<div style="position: absolute; top: 1360px; right: 1185px;" >
+  <input type="button" name="nubex" value="сортировка" onclick="sortir()" />
+</div>
+
+<div style="position: absolute; top: 1360px; right:800px;" >
+  <input type="button" name="nubex" value="заменить" onclick="change()" />
+</div>
+<div style="position: absolute; top: 640px; right:610px;" >
+  <input type="button" name="nubex" value="добавить" onclick="addit()" />
+</div>
+<div style="position: absolute; top: 940px; right:50px;" >
+  <input type="button" name="nubex" value="сгенерировать" onclick="gena()" />
+</div>
+ <nav class="navbar">
+  <div class="container">
+<a href="#" class="navbar-brand" onclick="showHeader()">   SobolewStyle</a>
+<div class="navbar-wrap">
+  <ul class="navbar-menu">
+    <li><a href="index.html">  Task1</a></li>
+    <li><a href="Photo.html">   Photo</a></li>
+    <li class="active"><a  href="Sort.html">Sort</a></li>
+    <li><a href="My_playlist.html">My playlist</a></li>
+    <li><a href="maze.html">maze</a></li>
+  </ul>
+</div>
+<a href="https://vk.com/id187333757" class="callback">Связь со мной</a>
+  </div>
+ </nav>
+<div class="first">
+    <div class = "title1"> 
+      Моя попытка сдать зачет
+    </div>
+
+  
+</div>
+
+<div style="position: absolute; top: 600px">
+<p id="temp-text"></p>
+
+</div>
+<div style="position: absolute; top: 720px; right: 20px;">
+  <p id="Kiva"></p>
+  
+  </div>
+
+<div style="position: absolute; top: 625px;left: 200px;">
+  <p id="obj"> Предметы и оценки за них:</br></p>
+  
+  </div>
+  <div style="position: absolute; top: 625px;left: 600px;">
+    <p id="obj4"> FIFO очередь:</br></p>
+    
+    </div>
+    <div style="position: absolute; top: 855px;left: 900px;">
+      <p id="obj5"> Сгенерировать числа из последовательности Сильвестра:</br></p>
+      
+      </div>
+    <div style="position: absolute; top: 1345px;left: 300px;">
+      <p id="obj1"> изменить по индексу имя:</br></p>
+      
+      </div>
+      
+    <div style="position: absolute; top: 1125px;left: 200px;">
+      <p id="obj2"> Список родственников(сестер):</br></p>
+      
+      </div>
+      <div style="position: absolute; top: 1375px;left: 200px;">
+        <p id="obj3"> Связный список родственников(сестер), отсортированные по их годам рождения с ссылкой на индекс следующего:</br></p>
+        
+        </div>
+    <div style="position: absolute; top: 640px;left: 720px;">
+    <input type="text" id="name" name="name" required
+       minlength="1" maxlength="2" size="2">
+ 
+      </div>
+      <div style="position: absolute; top: 892px;left: 1322px;">
+        <input type="text" id="name1" name="name1" required
+           minlength="1" maxlength="2" size="2">
+     
+          </div>
+          <div style="position: absolute; top: 1360px;left: 522px;">
+            <input type="text" id="name2" name="name2" required
+               minlength="1" maxlength="2" size="2">
+         
+              </div>
+
+<div class="timer" style="position: absolute; top:660px; right: 10px;">
+  <div class="timer__items">
+    <div id="year" class="timer__item year">00</div>
+    <div id="mou" class="timer__item m">00</div>
+    <div id="day" class="timer__item timer__days">00</div>
+    <div id="hou" class="timer__item timer__hours">00</div>
+    <div id="min" class="timer__item timer__minutes">00</div>
+    <div id="sec" class="timer__item timer__seconds">00</div>
+    
+  </div>
+  <div style="position: absolute;left:32px; top: 60px;  letter-spacing: 32px; ;"><strong>Г М Д Ч М С<strong></div>
+</div>
+<div style="position: absolute; top: 630px; right:325px">
+ <strong>До др осталось:<strong>
+</div>
+
+
+</body>
+
+</html>
+
+
+<script src = "timeout.js"></script>
