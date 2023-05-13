@@ -1,0 +1,100 @@
+import datetime as dt
+import queue as qu
+
+personal_data = ("Капеоюха Маргарита Олеговна", 30, 12, 2003)
+certificate = {"алгебра": 5, "геометрия": 5, "информатика": 5, "русский язык": 5, "литература": 5, "физика": 5, "биология": 5, "химия": 5, "география": 5, "история России": 5, "обществознание": 5, "физкультура": 5, "всеобщая история": 5, "астрономия": 5}
+family = ['Олег 1962', 'Оксана 1976', 'Сергей 1975', 'Елена 1960', 'Евгений 1983', 'Сергей 1985', 'Дмитрий 1945', 'Валентина 1941', 'Генадий 1940', 'Лариса 1940']
+kiwa_name = "Кошмар"
+
+#1
+aver_mark = sum(certificate.values())/len(certificate)
+print ("Средняя оценка в аттестате:", aver_mark)
+
+#2
+uniq_names = []
+fam_and_i = family.copy()
+fam_and_i.append(personal_data[0].split(' ')[1])
+for name in fam_and_i:
+    if name not in uniq_names:
+        uniq_names.append(name.split(' ')[0])
+print ("Уникальные имена среди родственников:", uniq_names)
+
+#3,4
+s_subj = 0
+uniq_letter = []
+for key in certificate:
+    s_subj += len(key)
+    for let in key:
+        if let not in uniq_letter:
+            uniq_letter.append(let)
+print ("Сумма длинн названий предметов:", s_subj)
+print ("Уникальные буквы в названиях предметов:", uniq_letter)
+
+#5
+bin_name = ''
+for let in kiwa_name:
+    bin_name += format(ord(let), '08b')
+print ("Имя пушистой кивы в бинарном виде:", bin_name)
+
+#6
+fam_to_sort = family.copy()
+for i in range(len(fam_to_sort)-1):
+    for j in range(len(fam_to_sort)-i-1):
+        k = 0
+        while fam_to_sort[j][k]==fam_to_sort[j+1][k] and k!=(len(family[j])-1):
+            k += 1
+        if ord(fam_to_sort[j][k])<ord(fam_to_sort[j+1][k]):
+            fam_to_sort[j], fam_to_sort[j+1] = fam_to_sort[j+1], fam_to_sort[j]
+print ("Отсортированный список родственников:", fam_to_sort)
+
+#7
+born_date = dt.date(int(personal_data[3]),int(personal_data[2]),int(personal_data[1]))
+current_date = dt.date.today()
+amount_days = current_date-born_date
+print("Количество прожитых дней:", str(amount_days).split(' ')[0])
+
+#8
+items = qu.Queue()
+subj = input("Для прекращения ввода введите q\n")
+while subj!='q':
+    items.put(subj)
+    subj = input()
+while not items.empty():
+    print (items.get(), end = ' ')
+
+#9
+number = (int(personal_data[1])+int(personal_data[2])**2+int(personal_data[3]))%21+1
+tlatoque = ['Tenoch', 'Acamapichtli', 'Huitzilihuitl', 'Chimalpopoca', 'Xihuitl Temoc', 'Itzcoatl', 'Moctezuma I', 'Atotoztli', 'Axayacatl', 'Tizoc', 'Ahuitzotl', 'Moctezuma II', 'Cuitláhuac', 'Cuauhtémoc', 'Tlacotzin', 'Motelchiuhtzin', 'Xochiquentzin', 'Huanitzin', 'Tehuetzquititzin', 'Cecetzin', 'Cipac']
+print ("\nВведите индекс от 0 до", len(family)-1)
+ind = int(input())
+while ind<0 or ind>=len(family):
+    print ("Пожалуйста, введите индекс от 0 до", len(family)-1)
+    ind = int(input())
+else:
+    family[ind]=tlatoque[number-1]
+    print (family)
+
+#10
+for i in range(len(fam_to_sort)-1):
+    for j in range(len(fam_to_sort)-i-1):
+        if int(fam_to_sort[j].split(' ')[1])>int(fam_to_sort[j+1].split(' ')[1]):
+            fam_to_sort[j], fam_to_sort[j+1] = fam_to_sort[j+1], fam_to_sort[j]
+fam_list = {}
+for name in fam_to_sort:
+    value = fam_to_sort.index(name)+1
+    if value<len(fam_to_sort):
+        fam_list[name] = value
+    else:
+        fam_list[name] = None
+print (fam_list)
+
+#11
+my_generator = len(personal_data[0])*len(family)%4
+print ("Мой генератор:", my_generator, "-- числа трибоначчи")
+def tribonacci(n):
+        tri0, tri1, tri2 = 0, 0, 1
+        for i in range (n):
+            yield tri0
+            tri0, tri1, tri2 = tri1, tri2, tri0+tri1+tri2
+n = int(input("Сколько чисел трибоначчи нужно вывести?\n"))
+print (list(tribonacci(n)))
