@@ -1,60 +1,70 @@
-
-
+# преобразуем лабиринт в матрицу
 with open('maze-for-u.txt', 'r') as f:
     maze = [list(line.strip()) for line in f.readlines()]
 
 
-for i in range(len(maze)):
-    for j in range(len(maze[0])):
-        if maze[i][j] == "*":
-            key = (i, j)
-            print(key)
-            maze[i][j] = " "
-            break
+# найдем координаты старта и ключа
+def get_data(maze):
+
+    x_start = int(input('Координаты аватара X: '))
+    y_start = int(input('Координаты аватара Y: '))
+
+    x_key = int(input('Координаты ключа X : '))
+    y_key = int(input('Координаты ключа Y : '))
+    maze[x_key][y_key] = " "
+
+    start = (x_start, y_start)
+    key = (x_key, y_key)
+
+    return start, key
 
 
-for Y in range(len(maze[0])):
-    if maze[0][Y] == " ":
-        start = (0, Y)
-        break
-
-
+# Поиск в глубину
 def dfs(start, end, maze):
-    LenMazeY = len(maze[0])
-    LenMazeX = len(maze)
+    len_maze_y = len(maze[0])
+    len_maze_x = len(maze)
     stack = [start]
-    visited = [start]
+    visited = {start}
+    paths = {start: []}
+
     while stack:
         current_pos = stack.pop()
         if current_pos == end:
-            return visited
+            return paths[current_pos]
 
-        coordsX, coordsY = current_pos
+        x_coord, y_coord = current_pos
 
         # проверяем все возможные направления движения
-        if (coordsX - 1) >= 0 and maze[coordsX - 1][coordsY] == " " and (coordsX - 1, coordsY) not in visited:
-            stack.append((coordsX - 1, coordsY))
-            visited.append((coordsX - 1, coordsY))
+        if (x_coord - 1) >= 0 and maze[x_coord - 1][y_coord] == " " and (x_coord - 1, y_coord) not in visited:
+            stack.append((x_coord - 1, y_coord))
+            visited.add((x_coord - 1, y_coord))
+            paths[(x_coord - 1, y_coord)] = paths[current_pos] + [current_pos]
 
-        if (coordsX + 1) < LenMazeX and maze[coordsX + 1][coordsY] == " " and (coordsX + 1, coordsY) not in visited:
-            stack.append((coordsX + 1, coordsY))
-            visited.append((coordsX + 1, coordsY))
+        if (x_coord + 1) < len_maze_x and maze[x_coord + 1][y_coord] == " " and (x_coord + 1, y_coord) not in visited:
+            stack.append((x_coord + 1, y_coord))
+            visited.add((x_coord + 1, y_coord))
+            paths[(x_coord + 1, y_coord)] = paths[current_pos] + [current_pos]
 
-        if (coordsY - 1) >= 0 and maze[coordsX][coordsY - 1] == " " and (coordsX, coordsY - 1) not in visited:
-            stack.append((coordsX, coordsY - 1))
-            visited.append((coordsX, coordsY - 1))
+        if (y_coord - 1) >= 0 and maze[x_coord][y_coord - 1] == " " and (x_coord, y_coord - 1) not in visited:
+            stack.append((x_coord, y_coord - 1))
+            visited.add((x_coord, y_coord - 1))
+            paths[(x_coord, y_coord - 1)] = paths[current_pos] + [current_pos]
 
-        if (coordsY + 1) < LenMazeY and maze[coordsX][coordsY + 1] == " " and (coordsX, coordsY + 1) not in visited:
-            stack.append((coordsX, coordsY + 1))
-            visited.append((coordsX, coordsY + 1))
+        if (y_coord + 1) < len_maze_y and maze[x_coord][y_coord + 1] == " " and (x_coord, y_coord + 1) not in visited:
+            stack.append((x_coord, y_coord + 1))
+            visited.add((x_coord, y_coord + 1))
+            paths[(x_coord, y_coord + 1)] = paths[current_pos] + [current_pos]
+
     return None
 
 
+start, key = get_data(maze)
 pathToKey = dfs(start, key, maze)
 
 for coords in pathToKey:
     x, y = coords
     maze[x][y] = "."
+    maze[key[0]][key[1]] = '*'
 
 with open('maze-for-me-done.txt', 'w') as f:
     for line in maze:
