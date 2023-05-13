@@ -61,6 +61,7 @@ def dfs(start, end, maze):
 start, key = get_data(maze)
 pathToKey = dfs(start, key, maze)
 
+
 for coords in pathToKey:
     x, y = coords
     maze[x][y] = "."
