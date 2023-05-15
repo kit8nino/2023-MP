@@ -2,20 +2,20 @@ import random
 import math
 import string
 
-#целые числа
+#Г¶ГҐГ«Г»ГҐ Г·ГЁГ±Г«Г 
 list_int = list(range(0,1000000)) 
 
-#натуральные числа
+#Г­Г ГІГіГ°Г Г«ГјГ­Г»ГҐ Г·ГЁГ±Г«Г 
 numbers_real = [random.uniform(-1, 1) for _ in range(99999)] 
 
-# 42000 разных точки комплексной плоскости
+# 42000 Г°Г Г§Г­Г»Гµ ГІГ®Г·ГЄГЁ ГЄГ®Г¬ГЇГ«ГҐГЄГ±Г­Г®Г© ГЇГ«Г®Г±ГЄГ®Г±ГІГЁ
 birth_day = 2
 birth_month = 12
 r = birth_day / birth_month
 points = [(random.uniform(-r, r), random.uniform(-r, r)) for _ in range(42000)]
 #sorted_points = sorted(points, key=lambda x: abs(complex(*x)))
 
-#отрывок из книги
+#Г®ГІГ°Г»ГўГ®ГЄ ГЁГ§ ГЄГ­ГЁГЈГЁ
 
 words = []
 with open('book.txt', encoding='utf-8') as book:
@@ -25,10 +25,10 @@ with open('book.txt', encoding='utf-8') as book:
                 words.append(str(i))
 
 #[7, 12, 8, 9] 
-#2 - bubble sort, сортировка пузырьком + натуральные
-#7 - Gnome sort, гномья сортировка + из книги
-#8 - selection sort, сортировка выбором + комплексные
-#10 - Quicksort, быстрая сортировка + целые
+#2 - bubble sort, Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  ГЇГіГ§Г»Г°ГјГЄГ®Г¬ + Г­Г ГІГіГ°Г Г«ГјГ­Г»ГҐ
+#7 - Gnome sort, ГЈГ­Г®Г¬ГјГї Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  + ГЁГ§ ГЄГ­ГЁГЈГЁ
+#8 - selection sort, Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  ГўГ»ГЎГ®Г°Г®Г¬ + ГЄГ®Г¬ГЇГ«ГҐГЄГ±Г­Г»ГҐ
+#10 - Quicksort, ГЎГ»Г±ГІГ°Г Гї Г±Г®Г°ГІГЁГ°Г®ГўГЄГ  + Г¶ГҐГ«Г»ГҐ
 
 #2
 
