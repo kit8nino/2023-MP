@@ -37,7 +37,6 @@ def poisk(start, end, graph):
     if end not in parent:
         return None, None
 
-    # Reconstruct the path
     path = []
     node = end
     while node is not None:
@@ -86,8 +85,8 @@ if path2 is None:
     print("Путь от ключа до выхода не найден")
     exit()
 
-way1 = path1[1:]  # Exclude the starting point
-way2 = path2[1:]  # Exclude the starting point
+way1 = path1[1:]  # Исключение начальной точки
+way2 = path2[1:]  
 
 rezult = []
 
