@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="libs/bootstrap-reboot.min.css">
+
+	<!-- Bootstrap сетка -->
+	<link rel="stylesheet" href="libs/bootstrap-grid.min.css">
+	<!-- Стили сайта -->
+	<link rel="stylesheet" href="css.css">
+</head>
+
+<body>
+ 
+ <nav class="navbar">
+  <div class="container">
+    
+<a href="#" class="navbar-brand" onclick="showHeader()">   SobolewStyle</a>
+<div class="navbar-wrap">
+  <ul class="navbar-menu">
+    <li><a href="index.html">   Task1</a></li>
+    <li class="active"><a  href="Photo.html">   Photo</a></li>
+    <li><a href="Sort.html">Sort</a></li>
+    <li><a href="My_playlist.html">My playlist</a></li>
+    <li><a href="maze.html">maze </a></li>
+  </ul>
+</div>
+
+<a href="https://vk.com/id187333757" class="callback">Связь со мной</a>
+  </div>
+  
+ </nav>
+
+</div>
+<div class="first1">
+  <div class = "title22"> 
+    Мои фоточки 
+  </div>
+</div>
+
+</div>
+
+
+
+<div class="imag" >
+  <div>
+    <img src="https://joborgame.ru/cdn/lol/champion/splash/Irelia_15.jpg" style="width: 150%;   max-height: 400px;
+    max-width: 400px;
+    object-fit: cover; ">
+  </div>
+  <div>
+    <img src="https://sun9-19.userapi.com/c9304/u35499/108590800/x_4b3d1802.jpg" style="width: 150%;   max-height: 400px;
+    max-width: 400px;
+    object-fit: cover; ">
+  </div>
+  <div>
+    <img src="http://lol-stats.net/uploads/hPPm7YLjkFVDcEE0nJM12PjM39kOgUVSdECan0SZ.jpeg" style="width: 150%;    max-height: 400px;
+    max-width: 400px;
+    object-fit: cover;">
+  </div>
+  <div>
+    <img src="https://mobimg.b-cdn.net/v3/fetch/85/85645d4e38f844b661f21bdc1e88610d.jpeg" style="width: 150%;   max-height: 400px;
+    max-width: 400px;
+    object-fit: cover; ">
+  </div>
+  <div>
+    <img src="https://i.redd.it/sfj6xfw4rjf61.jpg" style="width: 150%;   max-height: 400px;
+    max-width: 400px;
+    object-fit: cover; ">
+  </div>
+  <div>
+    <img src="https://kartinkin.net/pics/uploads/posts/2022-08/1659496292_3-kartinkin-net-p-miss-fortuna-lol-art-oboi-4.jpg" style="width: 150%;   max-height: 400px;
+    max-width: 400px;
+    object-fit: cover; ">
+  </div>
+  </div>
+
+<canvas style="position: absolute; ">
+
+</canvas>
+
+
+</body>
+
+</html>
+<script>
+   const canvas =document.querySelector('canvas')
+const c = canvas.getContext('2d')
+canvas.width = 1190
+canvas.height = 700
+c.fillStyle ='white'
+R2 = 100
+c.fillRect(0, 0, canvas.width, canvas.height)
+   c.beginPath();
+   c.arc(500,355,300,0,Math.PI*2,true);
+   c.stroke();
+   c.beginPath();
+   c.arc(500,355,R2,0,Math.PI*2,true);
+   c.stroke();
+let x;
+let y
+let R 
+let r = 26
+let f
+R = 300 - r
+
+f = Math.random()*(2*Math.PI - 0) + 0
+let k = 0;
+x0 = 500
+y0 = 355
+let kol = 0;
+arr = []
+for ( let i =0 ; i < 1500; i++)
+{
+
+  if ( kol < 60)
+  {
+f = Math.random()*(2*Math.PI - 0) + 0
+
+x = R*Math.cos(f) + x0
+y = R*Math.sin(f) + y0
+
+console.log(k)
+
+if ( Math.sqrt((x-x0)*(x-x0) + (y - y0)*(y-y0)) <= R && Math.sqrt((x-x0)*(x-x0) + (y - y0)*(y-y0)) >= R-5 ) {
+if (k == 0) {
+arr.push([x,y])
+//c.beginPath()
+//c.arc(x,y,r,0,Math.PI*2,true);
+//c.stroke();
+
+c.beginPath();
+c.arc(x,y,4,0,Math.PI*2,true);
+c.stroke();
+}
+k +=1;
+flag = true
+if ( k >= 1)
+{
+  if ( k % 55 == 0  &&  R > R2+18)
+{
+  R -= r
+}
+  for (let i = 0; i <  arr.length; i++)
+  {
+    if ((Math.sqrt((x-arr[i][0])*(x-arr[i][0]) + (y - arr[i][1])*(y-arr[i][1]))) >= 2*r)
+    {
+      console.log(x, y ," ", Math.sqrt((x-arr[i][0])*(x-arr[i][0]) + (y - arr[i][1])*(y-arr[i][1])))
+     
+    } else
+    {  console.log("go")
+      flag = false
+    }
+  }
+  if (flag == true)
+{
+  arr.push([x,y])
+  console.log("go")
+//c.beginPath()
+//c.arc(x,y,r,0,Math.PI*2,true);
+//c.stroke();
+
+c.beginPath();
+c.arc(x,y,4,0,Math.PI*2,true);
+c.stroke();
+kol +=1
+
+}
+}
+}
+}
+}
+
+
+</script>
