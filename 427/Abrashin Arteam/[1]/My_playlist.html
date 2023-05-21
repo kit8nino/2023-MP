@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="libs/bootstrap-reboot.min.css">
+
+	<!-- Bootstrap сетка -->
+	<link rel="stylesheet" href="libs/bootstrap-grid.min.css">
+	<!-- Стили сайта -->
+	<link rel="stylesheet" href="css.css">
+</head>
+
+<body>
+
+  <button  onclick="next()" class="submit1" style="
+   height: 40px ; width:10%; position: absolute; top: 720px; left:580px;  
+    box-shadow: 0 4px 10px rgba(228, 134, 134, 0.5);
+    appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #4676D7;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 16px;
+
+  "
+
+> play next track </button>
+
+<button  onclick="last()" class="submit2" style="
+height: 40px ; width:10%; position: absolute; top: 720px; left:180px;  
+ box-shadow: 0 4px 10px rgba(228, 134, 134, 0.5);
+ appearance: none;
+border: 0;
+border-radius: 5px;
+background: #4676D7;
+color: #fff;
+padding: 8px 16px;
+font-size: 16px;
+
+"
+
+> play last track </button>
+<button  onclick="pauses(); " class="submit3" style="
+height: 40px ; width:10%; position: absolute; top: 720px; left:380px;  
+ box-shadow: 0 4px 10px rgba(228, 134, 134, 0.5);
+ appearance: none;
+border: 0;
+border-radius: 5px;
+background: #4676D7;
+color: #fff;
+padding: 8px 16px;
+font-size: 16px;
+
+"
+
+>stop track </button>
+
+
+ <nav class="navbar">
+  <div class="container">
+<a href="#" class="navbar-brand" onclick="showHeader()">   SobolewStyle</a>
+<div class="navbar-wrap">
+  <ul class="navbar-menu">
+    <li><a href="index.html">   Task1</a></li>
+    <li><a href="Photo.html">   Photo</a></li>
+    <li><a href="Sort.html">Sort</a></li>
+    <li class="active" ><a  href="My_playlist.html">My playlist</a></li>
+    <li><a href="maze.html">maze</a></li>
+  </ul>
+</div>
+<a href="https://vk.com/id187333757" class="callback">Связь со мной</a>
+  </div>
+ </nav>
+<div class="first1" 
+ >
+
+</div>
+
+<div class="radio">
+  <img src="audio/radio.png" style=" position: absolute; width:400%;   max-height: 600px;
+  top: 420px;
+  left:100px;
+    max-width: 700px;
+    ">
+</div>
+<div class="results" style="position:absolute; top: 440px; left: 205px;width:490px; height:190px; text-align: center;
+vertical-align: middle;line-height: 90px;  color: rgb(217, 255, 0); background-color: rgb(31, 34, 34, 0.4 );">
+
+</div>
+
+
+
+</body>
+
+</html>
+<script>
+  let cont = document.querySelector('.results');
+  let p = 0;
+  let k =0;
+  let ispl1 = false; 
+  let ispl2, ispl3, ispl4;
+ var audio1 = new Audio('audio/KS.mp3');
+ var audio2 = new Audio('audio/ID.mp3');
+ var audio3 = new Audio('audio/Alan.mp3');
+ var audio4 = new Audio('audio/Avicii.mp3');
+
+function next()
+{
+  if (k <4)
+ k+=1;
+ playaudio();
+}
+
+function last()
+{
+  if (k > 0)
+ k-=1;
+ playaudio();
+}
+function pauses()
+{
+  console.log(p)
+
+if (p == 0)
+{
+  audio1.pause();
+      audio2.pause();
+      audio3.pause();
+      audio4.pause();
+      isp1 = false;
+      p = 1;
+      
+} else 
+
+if (p == 1)
+{
+ playaudio();
+   
+p = 0;
+} 
+}
+
+
+
+ function playaudio()
+ {
+console.log(k)
+  switch(k)
+  {
+    case 1:
+      audio1.play();
+      audio2.pause();
+      audio3.pause();
+      audio4.pause();
+      audio2.currentTime = 0;
+      audio3.currentTime = 0;
+      audio4.currentTime = 0;
+      document.querySelector('.results').innerHTML = 'Now playng: Music_title_of_Ksante';
+      document.querySelector('.results').innerHTML += '<hr>';
+      document.querySelector('.results').innerHTML += 'Autor: League_of_Legends';
+
+ p =0;
+
+      break;
+      case 2:
+      audio1.pause();
+      audio2.play();
+      audio3.pause();
+      audio4.pause();
+      audio1.currentTime = 0;
+      audio3.currentTime = 0;
+      p= 0;
+      audio4.currentTime = 0;
+      document.querySelector('.results').innerHTML = 'Now playng: Sharks';
+      document.querySelector('.results').innerHTML += '<hr>';
+      document.querySelector('.results').innerHTML += 'Autor: Imagine_Dragons';
+
+    
+
+      break;
+      case 3:
+      audio1.pause();
+      audio2.pause();
+      audio3.play();
+      audio4.pause();
+      audio2.currentTime = 0;
+      audio1.currentTime = 0;
+      audio4.currentTime = 0;
+      p = 0;      
+      document.querySelector('.results').innerHTML = 'Now playng: Faded';
+      document.querySelector('.results').innerHTML += '<hr>';
+      document.querySelector('.results').innerHTML += 'Autor: Alan_Walker';
+
+
+      break;
+      case 4:
+      audio1.pause();
+      audio2.pause();
+      audio3.pause();
+      audio4.play();
+      audio2.currentTime = 0;
+      audio3.currentTime = 0;
+      audio1.currentTime = 0;
+      p = 0;
+      document.querySelector('.results').innerHTML = 'Now playng: The_Nights';
+      document.querySelector('.results').innerHTML += '<hr>';
+      document.querySelector('.results').innerHTML += 'Autor: Avicii';
+
+      break;
+     
+
+  }
+
+
+ }
+
+
+ const N = 6;
+
+  let final_path = Array (N + 1).fill (-1);
+   
+ 
+   let visited = Array (N).fill (false);
+  
+
+   let final_res = Number.MAX_SAFE_INTEGER;
+
+ function copyToFinal (curr_path){
+       for (let i = 0; i < N; i++){
+       final_path[i] = curr_path[i];
+       }
+       final_path[N] = curr_path[0];
+ }
+  
+
+ function firstMin (adj, i){
+ let min = Number.MAX_SAFE_INTEGER;
+     for (let k = 0; k < N; k++){
+       if (matr[i][k] < min && i !== k){
+              min = matr[i][k];
+        }
+        }
+  return min;
+ }
+  
+
+ function secondMin (adj, i){
+     let first = Number.MAX_SAFE_INTEGER;
+     let second = Number.MAX_SAFE_INTEGER;
+       for (let j = 0; j < N; j++){
+         if (i ==  j){
+             continue;
+          }
+         if (matr[i][j] <= first){
+               second = first;
+              first = matr[i][j];
+         }
+           else if (matr[i][j] <= second && matr[i][j] !== first){
+               second = matr[i][j];
+         }
+    }
+       return second;
+ }
+  
+  
+
+   function TSPRec (matr, curr_bound, curr_weight, level, curr_path)
+ {
+    
+
+     if (level ==  N)
+     {
+   
+     if (matr[curr_path[level - 1]][curr_path[0]] !== 0)
+     {
+        
+        
+         let curr_res =
+         curr_weight + matr[curr_path[level - 1]][curr_path[0]];
+      
+         if (curr_res < final_res)
+         {
+           copyToFinal (curr_path);
+           final_res = curr_res;
+         }
+     }
+       return;
+      
+ }
+    
+     
+     for (let i = 0; i < N; i++){
+        
+
+     if (matr[curr_path[level - 1]][i] !== 0 && !visited[i]){
+        
+     let temp = curr_bound;
+    curr_weight += matr[curr_path[level - 1]][i];
+        
+  
+         if (level ==  1){
+           curr_bound -= (firstMin (matr, curr_path[level - 1]) + firstMin (matr, i)) / 2;
+          
+ }
+       else
+         {
+           curr_bound -= (secondMin (matr, curr_path[level - 1]) + firstMin (matr, i)) / 2;
+          
+ }
+        
+         if (curr_bound + curr_weight < final_res){
+           curr_path[level] = i;
+           visited[i] = true;     
+     
+         TSPRec (matr, curr_bound, curr_weight, level + 1, curr_path);
+          
+ }
+         curr_weight -= matr[curr_path[level - 1]][i];
+           curr_bound = temp;
+        
+         
+         visited.fill (false)
+         for (var j = 0; j <= level - 1; j++)
+                visited[curr_path[j]] = true;
+      
+ }
+      
+ }
+  
+ }
+  
+  
+   function TSP (matr)
+ {
+    
+ let curr_path = Array (N + 1).fill (-1);
+
+     let curr_bound = 0;
+    
+ visited.fill (false);
+    
+ 
+     for (let i = 0; i < N; i++){
+       curr_bound += firstMin (matr, i) + secondMin (matr, i);
+      
+     }
+ 
+     curr_bound = curr_bound ==  1 ? (curr_bound / 2) + 1 : (curr_bound / 2);
+
+     visited[0] = true;
+    
+ curr_path[0] = 0;
+    
+
+     TSPRec (matr, curr_bound, 0, 1, curr_path);
+  
+ }
+  
+  
+
+   let matr =[[0, 0 ,2 ,5, 6 ,1],
+ [0, 0 ,7, 7 ,0 ,5],
+ [6, 2 ,0, 8 ,0 ,7],
+ [4 ,0, 3 ,0, 0, 0],
+ [3, 0 ,4 ,2 ,0, 8],
+ [3, 5, 4 ,4 ,3 ,0]]
+  
+   
+ TSP (matr);
+  console.log(matr[final_path[final_path.length-1]][final_path[final_path.length-2]])
+  console.log(final_path[final_path.length-2])
+  console.log(final_path[final_path.length-1])
+ final_res -= matr[final_path[final_path.length-2]][final_path[final_path.length-1]]
+ console.log (`Minimum :${final_res}`);
+ console.log (`Path :${final_path}`);
+  
+
+</script>
