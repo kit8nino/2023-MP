@@ -119,6 +119,7 @@ list_of_relatives = {
 var = len(fio)*len(family) % 4
 print(var)
 
+
 def sylvester_sequence(n):
     sylvester_numbers = [1, 2, 3]
     count = 2
@@ -136,3 +137,4 @@ n = int(input("Введите количество членов последов
 sequence = sylvester_sequence(n)
 for num in sequence:
     print(num)
+
