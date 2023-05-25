@@ -89,8 +89,6 @@ def quicksort(words):
             greater_len)
 
 
-print(quicksort(words))
-
 # Битонная сортировка
 up = True  # Флаг указывает на направление сортировки
 
@@ -134,3 +132,37 @@ def bitonic_compare(arr, up):
     for i in range(dist):
         if (arr[i] > arr[i + dist]) == up:
             arr[i], arr[i + dist] = arr[i + dist], arr[i]
+
+
+# сортировка деревом
+def binary_tree_sort(arr):
+    node = None
+    for value in arr:  # проходится по каждому элементу и создаем дерево
+        node = insert_node(node, value)
+    sorted_list = []
+    traverse_tree(node, sorted_list)
+    return sorted_list
+
+
+def insert_node(node, value):
+    # Создаем родителя
+    if node is None:
+        return {'value': value, 'left': None, 'right': None}
+    # Если значение меньше значения родителя, добавляем в левую ветку
+    if value < node['value']:
+        node['left'] = insert_node(node['left'], value)
+    else:
+        node['right'] = insert_node(node['right'], value)
+    return node
+
+
+def traverse_tree(node, sorted_list):
+    if node is None:
+        return
+    # рекурсивно проходимся по элементам, собирая сначала левые
+    traverse_tree(node['left'], sorted_list)
+    sorted_list.append(node['value'])
+    traverse_tree(node['right'], sorted_list)
+
+
+print(binary_tree_sort(arr_R))
