@@ -8,6 +8,8 @@ import numpy as np
 
 arr_N = []
 arr_R = []
+arr_C = []
+arr_C_abs = []
 
 # №1 список целых чисел от 0 до 999999 (ну почти)
 for i in range(1000):
@@ -18,6 +20,32 @@ rnd.shuffle(arr_N)
 for i in range(-1000, 1000):
     arr_R.append(i / 1000)
 rnd.shuffle(arr_R)
+
+# №3 42000 разных точки комплексной плоскости, лежащие внутри окружности радиуса r
+
+r = rnd.random() * 23 / 7
+n = 10
+fi = 2 * np.pi / n
+
+for i in range(n):
+    Im = r * np.sin(i * fi)
+    Re = r * np.cos(i * fi)
+    arr_C.append((Re, Im))
+
+for item in arr_C:
+    res = 0
+    for i in item:
+        res += i ** 2
+    arr_C_abs.append(np.sqrt(res))
+
+# №4 отрывок из книги
+
+with open('A Journey to the Interior of the Earth', encoding='utf-8') as book:
+    text = book.read().lower()
+    words = text.split()
+for word in words:
+    if word == '—':
+        words.remove(word)
 
 
 # Сортировка вставками
@@ -65,6 +93,17 @@ def bitonic_sort(arr, up):
         first = bitonic_sort(arr[:mid], True)
         second = bitonic_sort(arr[mid:], False)
         arr = bitonic_merge(first + second, up)
+
+        # Приведение к биттонной последовательности
+
+        n = len(arr)
+        k = 1
+        while k < n:
+            for i in range(0, n - k, 2 * k):
+                arr[i:i + k] = bitonic_merge(arr[i:i + k], True)
+                arr[i + k:i + 2 * k] = bitonic_merge(arr[i + k:i + 2 * k], False)
+            k *= 2
+
         return arr
 
 
@@ -86,6 +125,4 @@ def bitonic_compare(arr, up):
         if (arr[i] > arr[i + dist]) == up:
             arr[i], arr[i + dist] = arr[i + dist], arr[i]
 
-
-print(bitonic_sort(arr_N, up))
-# print(quick_sort(arr_R, 0, len(arr_R) - 1))
+print(bitonic_sort(arr_N))
