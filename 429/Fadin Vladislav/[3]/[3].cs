@@ -1,5 +1,5 @@
 /*
-Совместно с Утросин Кирилл (Kirill-U-S)
+РЎРѕРІРјРµСЃС‚Рѕ СЃ РљРёСЂРёР»Р»РѕРј РЈС‚СЂРѕСЃРёРЅС‹Рј (Kirill-U-S)
 */
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Path
     {
         public bool isOpen { get; set; }
         public int wmin { get; set; }
-        public int vmin { get; set; } //vmin указывает на id клетки к которой минимальный доступный путь 
+        public int vmin { get; set; } //vmin СѓРєР°Р·С‹РІР°РµС‚ РЅР° id РєР»РµС‚РєРё Рє РєРѕС‚РѕСЂРѕР№ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РґРѕСЃС‚СѓРїРЅС‹Р№ РїСѓС‚СЊ 
         public bool isSeen { get; set; }
         public bool isSeenforDepth { get; set; }
         public int id { get; }
@@ -69,7 +69,7 @@ namespace Path
         static int idExit;
         static bool text_output;
         /// <summary>
-        /// считывает лабиринт
+        /// СЃС‡РёС‚С‹РІР°РµС‚ Р»Р°Р±РёСЂРёРЅС‚
         /// </summary>
         static void ReadFile()
         {
@@ -89,9 +89,9 @@ namespace Path
                         if (k == 0 && line[i] == ' ')
                             Map.Add(id, new Cell(true, 0, 0, id));
                         else if (line[i] == ' ')
-                            Map.Add(id, new Cell(true, 0, 0, id)); //точка доступная к прохождению
+                            Map.Add(id, new Cell(true, 0, 0, id)); //С‚РѕС‡РєР° РґРѕСЃС‚СѓРїРЅР°СЏ Рє РїСЂРѕС…РѕР¶РґРµРЅРёСЋ
                         else if (line[i] == '#')
-                            Map.Add(id, new Cell(false, 0, 0, id)); //стена
+                            Map.Add(id, new Cell(false, 0, 0, id)); //СЃС‚РµРЅР°
                     }
                     k++;
                 }
@@ -126,19 +126,19 @@ namespace Path
             }
         }
         /// <summary>
-        /// считает вес для клетки id
+        /// СЃС‡РёС‚Р°РµС‚ РІРµСЃ РґР»СЏ РєР»РµС‚РєРё id
         /// </summary>
-        /// <param name="wa">вес пути из точки аватара</param>
-        /// <param name="ps">цена шага</param>
-        /// <param name="id">id клетки</param>
+        /// <param name="wa">РІРµСЃ РїСѓС‚Рё РёР· С‚РѕС‡РєРё Р°РІР°С‚Р°СЂР°</param>
+        /// <param name="ps">С†РµРЅР° С€Р°РіР°</param>
+        /// <param name="id">id РєР»РµС‚РєРё</param>
         /// <returns></returns>
-        static int WСalc(int wa, int ps, int id)
+        static int WГ‘alc(int wa, int ps, int id)
         {
-            int rho = (idExit / dlina - id / dlina)/*вычитаем по i*/ + (idExit % dlina - id % dlina)/*вычитаем по j*/;
+            int rho = (idExit / dlina - id / dlina)/*РІС‹С‡РёС‚Р°РµРј РїРѕ i*/ + (idExit % dlina - id % dlina)/*РІС‹С‡РёС‚Р°РµРј РїРѕ j*/;
             return ps + wa + rho;
         }
         /// <summary>
-        /// проверяет наличие Cell в Front
+        /// РїСЂРѕРІРµСЂСЏРµС‚ РЅР°Р»РёС‡РёРµ Cell РІ Front
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -154,7 +154,7 @@ namespace Path
             {
                 bool flag = false;
 
-                //проверка на наличие Cell в Front
+                //РїСЂРѕРІРµСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ Cell РІ Front
                 for (int i = 0; i < Front.Count(); i++)
                 {
                     if (Front[i].id == id)
@@ -166,7 +166,7 @@ namespace Path
                     }
                 }
 
-                //если Cell нет во фронте
+                //РµСЃР»Рё Cell РЅРµС‚ РІРѕ С„СЂРѕРЅС‚Рµ
                 if (!flag)
                 {
                     v[0] = 0;
@@ -178,12 +178,12 @@ namespace Path
         static List<Cell> A(int idEnter, int idExit)
         {
             List<Cell> Path = new List<Cell>();
-            //ставим аватар в начало
+            //СЃС‚Р°РІРёРј Р°РІР°С‚Р°СЂ РІ РЅР°С‡Р°Р»Рѕ
             int idcellAvatar = idEnter;
 
             while (true)
             {
-                //вывод в консоль
+                //РІС‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ
                 if (text_output)
                     Console.WriteLine($"A*: Avatar = {idcellAvatar}, Path.Length: {Path.Count()}");
 
@@ -192,7 +192,7 @@ namespace Path
                 int jk = idcellAvatar % dlina;
                 int ik = idcellAvatar / dlina;
 
-                #region расширяем фронт через соседние клетки
+                #region СЂР°СЃС€РёСЂСЏРµРј С„СЂРѕРЅС‚ С‡РµСЂРµР· СЃРѕСЃРµРґРЅРёРµ РєР»РµС‚РєРё
                 for (int i = -1; i < 2; i++)
                 {
                     for (int j = -1; j < 2; j++)
@@ -204,23 +204,23 @@ namespace Path
                         if (ii >= 0 && jj >= 0)
                         {
 
-                            if (Map[id].isOpen && !Map[id].Passed)//рассматриваем Cell если она не стена и не пройдена аватаром
+                            if (Map[id].isOpen && !Map[id].Passed)//СЂР°СЃСЃРјР°С‚СЂРёРІР°РµРј Cell РµСЃР»Рё РѕРЅР° РЅРµ СЃС‚РµРЅР° Рё РЅРµ РїСЂРѕР№РґРµРЅР° Р°РІР°С‚Р°СЂРѕРј
                             {
-                                //считам вес
-                                int W = WСalc(Map[idcellAvatar].wmin, 1, id);
+                                //СЃС‡РёС‚Р°Рј РІРµСЃ
+                                int W = WГ‘alc(Map[idcellAvatar].wmin, 1, id);
 
-                                //отправляем на добавление
+                                //РѕС‚РїСЂР°РІР»СЏРµРј РЅР° РґРѕР±Р°РІР»РµРЅРёРµ
                                 Map[id].Weight(W, idcellAvatar);
 
-                                //добавляем во фронт
+                                //РґРѕР±Р°РІР»СЏРµРј РІРѕ С„СЂРѕРЅС‚
                                 if (!Map[id].isSeen)
                                 {
-                                    //устанавливаем значение просмотрено
+                                    //СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ РїСЂРѕСЃРјРѕС‚СЂРµРЅРѕ
                                     Map[id].isSeen = true;
                                     Front = Front.Append(Map[id]).ToList();
 
                                     if (text_output)
-                                        Console.WriteLine($"Фронт расширен ячейкой: {id}");
+                                        Console.WriteLine($"Р¤СЂРѕРЅС‚ СЂР°СЃС€РёСЂРµРЅ СЏС‡РµР№РєРѕР№: {id}");
                                 }
                                 else
                                     Front[isFront(id)[1]].Weight(W, idcellAvatar);
@@ -230,7 +230,7 @@ namespace Path
                 }
                 #endregion
 
-                #region ищем Cell с минимальным весом
+                #region РёС‰РµРј Cell СЃ РјРёРЅРёРјР°Р»СЊРЅС‹Рј РІРµСЃРѕРј
                 int minweight = int.MaxValue;
                 int idmin = 0;
                 for (int i = 0; i < Front.Count(); i++)
@@ -248,7 +248,7 @@ namespace Path
                     break;
             }
 
-            //обходим лабиринт в обратную сторону по указателям
+            //РѕР±С…РѕРґРёРј Р»Р°Р±РёСЂРёРЅС‚ РІ РѕР±СЂР°С‚РЅСѓСЋ СЃС‚РѕСЂРѕРЅСѓ РїРѕ СѓРєР°Р·Р°С‚РµР»СЏРј
             //idcellAvatar == idExit    ---->    idEnter
             while (true)
             {
@@ -258,7 +258,7 @@ namespace Path
                 idcellAvatar = Map[idcellAvatar].vmin;
             }
 
-            //получили путь => теперь надо перевернуть
+            //РїРѕР»СѓС‡РёР»Рё РїСѓС‚СЊ => С‚РµРїРµСЂСЊ РЅР°РґРѕ РїРµСЂРµРІРµСЂРЅСѓС‚СЊ
             Path.Reverse();
             return Path;
         }
@@ -268,11 +268,11 @@ namespace Path
             ToVisit[idcellAvatar].isSeenforDepth = true;
             Path.Add(ToVisit[idcellAvatar]);
 
-            //вывод в консоль
+            //РІС‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ
             if (text_output)
                 Console.WriteLine($"DFS: Avatar = {idcellAvatar}, Path.Length: {Path.Count()}");
 
-            #region расширяем фронт через соседние клетки
+            #region СЂР°СЃС€РёСЂСЏРµРј С„СЂРѕРЅС‚ С‡РµСЂРµР· СЃРѕСЃРµРґРЅРёРµ РєР»РµС‚РєРё
             int jk = idcellAvatar % dlina;
             int ik = idcellAvatar / dlina;
             for (int i = -1; i < 2; i++)
@@ -319,17 +319,17 @@ namespace Path
             ReadFile();
             List<Cell> bufPathdfs = new List<Cell>();
             List<int> Keys = new List<int>();
-            //выводить ли шаги в консоль
-            Console.WriteLine("Выводить шаги в консоль? Y/N");
+            //РІС‹РІРѕРґРёС‚СЊ Р»Рё С€Р°РіРё РІ РєРѕРЅСЃРѕР»СЊ
+            Console.WriteLine("Р’С‹РІРѕРґРёС‚СЊ С€Р°РіРё РІ РєРѕРЅСЃРѕР»СЊ? Y/N");
             string outp = Console.ReadLine();
             if (outp[0] == 'Y')
                 text_output = true;
             else if (outp[0] == 'N')
                 text_output = false;
             else
-                Console.WriteLine("Не ясно -> Программа начала свое действие");
+                Console.WriteLine("РќРµ СЏСЃРЅРѕ -> РџСЂРѕРіСЂР°РјРјР° РЅР°С‡Р°Р»Р° СЃРІРѕРµ РґРµР№СЃС‚РІРёРµ");
 
-            //В глубину
+            //Р’ РіР»СѓР±РёРЅСѓ
             Dictionary<int, Cell> ToVisit = new Dictionary<int, Cell>();
             foreach (var item in Map)
             {
@@ -356,23 +356,23 @@ namespace Path
             //newPath.Reverse();
             //bufPathdfs = newPath;
 
-            Console.WriteLine($"DFS закончил свою работу ключ: {key}");
+            Console.WriteLine($"DFS Р·Р°РєРѕРЅС‡РёР» СЃРІРѕСЋ СЂР°Р±РѕС‚Сѓ РєР»СЋС‡: {key}");
 
             //A*
             List<Cell> buf = A(key, idExit);
 
-            Console.WriteLine($"A* закончил свою работу ключ: {key}");
+            Console.WriteLine($"A* Р·Р°РєРѕРЅС‡РёР» СЃРІРѕСЋ СЂР°Р±РѕС‚Сѓ РєР»СЋС‡: {key}");
 
             List<int> pathid = new List<int>();
             for (int i = 0; i < buf.Count; i++)
                 pathid = pathid.Append(buf[i].id).ToList();
 
-            #region Очистка Map
+            #region РћС‡РёСЃС‚РєР° Map
             foreach (var item in Map)
                 if (item.Value.Passed)
                     Map[item.Key].Passed = false;
             #endregion
-            #region отобразить путь в лабиринте
+            #region РѕС‚РѕР±СЂР°Р·РёС‚СЊ РїСѓС‚СЊ РІ Р»Р°Р±РёСЂРёРЅС‚Рµ
             Map[ToVisit[key].id].isKey = true;
             for (int i = 0; i < pathid.Count; i++)
                 Map[pathid[i]].Passed = true;
@@ -381,7 +381,7 @@ namespace Path
                 Map[bufPathdfs[i].id].PassedDFS = true;
             #endregion
             Write();
-            Console.WriteLine("программа закончила работу");
+            Console.WriteLine("РїСЂРѕРіСЂР°РјРјР° Р·Р°РєРѕРЅС‡РёР»Р° СЂР°Р±РѕС‚Сѓ");
             Console.ReadLine();
         }
     }
