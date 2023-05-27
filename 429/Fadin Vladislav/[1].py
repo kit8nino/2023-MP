@@ -108,22 +108,27 @@ else:
 
 #Задание 9 Axayacatl
 ind = (24 + 9**2 + 2003) % 21 + 1
+actec = ["Tenoch","Acamapichtli","Huitzilihuitl","Chimalpopoca","Xihuitl Temoc","Itzcoatl","Moctezuma I","Atotoztli",
+      "Axayacatl","Tizoc","Ahuitzotl","	Moctezuma II","Cuitláhuac","Cuauhtémoc","Tlacotzin",
+      "Motelchiuhtzin","Huanitzin","Tehuetzquititzin","Cecetzin","Cipac"]
 print('\n','Номер Ацтека: ', ind)
+print('Введите номер родственника, что хотите сделать ацтеком: ')
+act = int(input())
 dt1 = ''
 dt2 = ''
-n = len(sort_tree[ind-1])
-old_actec = sort_tree[ind-1]
+n = len(sort_tree[act-1])
+old_actec = sort_tree[act-1]
 
 while old_actec[n-1] != ' ':
     dt1 = dt1 + old_actec[n-1]
     n = n - 1
 for i in range(len(dt1), 0, -1):
     dt2 += dt1[i-1]
-    
-new_actec = 'Axayacatl' + ' ' + dt2
-sort_tree[ind - 1] = new_actec
-print('\n', '+1 Ацтек: ',sort_tree)
 
+    
+new_actec = actec[ind-1] + ' ' + dt2
+sort_tree[act - 1] = new_actec
+print('\n', '+1 Ацтек: ',sort_tree)
 
 #Задание 10 
 print('\n','Связный список: ')
