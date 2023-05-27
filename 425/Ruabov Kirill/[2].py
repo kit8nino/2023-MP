@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[10]:
+# In[1]:
 
 
 import numpy as np
 import random
+import math
+from pathlib import Path
 
 #методы сортировки выбранные рандомом: 2,8,10,4
 ''' список целых чисел от 0 до 999999 '''
@@ -71,7 +73,7 @@ def quick_sort(array):
     return quick_sort(a) + b + quick_sort(c) if a and c else a + b + c 
 
 im_num1 = quicksort(im_num)
-print("быстрая сортировка:\n",im_num1)
+print("быстрая сортировка:\n",im_num1 )
 
 # сортировка вставкой
 
@@ -85,4 +87,10 @@ def insert_sort(array):
         array[j + 1] = t
 array=text        
 print("сортировка вставкой:\n",insert_sort(array))
+
+
+# In[ ]:
+
+
+
 
