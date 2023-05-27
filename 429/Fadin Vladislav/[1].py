@@ -1,3 +1,6 @@
+"""
+Сделано совместно с Кириллом Утросиным - Kirill-U-S
+"""
 import datetime
 from datetime import date
 
