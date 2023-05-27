@@ -15,7 +15,6 @@ def x_y(text_mas,k):
     y=random.randint(0, len(text_mas[0])-2)
     stena=True
     while stena==True:
-        #print(text_mas[x,y],x,y)
         if text_mas[x,y]==' ':
             stena=False
         else:
@@ -49,13 +48,16 @@ def bfs(field, robot, key):
     while cur is not None:
         path.append(cur)
         cur= p[cur[0]][cur[1]]
-        path.reverse()
+    path.reverse()
     return path, d[key[0]][key[1]]
         
+
     
 
 fin=codecs.open("maze-for-u.txt","r","utf_8_sig")
 field=fin.readlines()
+
+#Записываем лабиринт в массив
 
 n=len(field)
 stroka=len(field[0])
@@ -65,9 +67,10 @@ for i in range(0,n):
     for j in range(0,len(field[i])-1): 
         line+=field[i][j]
     text.append(line) 
-    print(text)
 text_mas=np.array(text)
 k=len(text_mas)
+
+#Поиск выходов
 
 exit_1=[]
 exit_2=[]
@@ -80,37 +83,40 @@ for i in range(0, stroka):
     if text_mas[n-1][i]==' ':
         exit_2=[n-1,i]
         break
-print(text_mas)
-print(exit_1,exit_2)
+print('Выходы',exit_1,exit_2)
 
 #Генерация координат аватара и ключа
 robot_x, robot_y=x_y(text_mas, k)
 robot=[robot_x, robot_y]
 key_x, key_y=x_y(text_mas, k)
 key=[key_x, key_y]
-print(robot)
-print(key)
-path, l=bfs(field,robot,key)
-"""    
-rezult=[]
+text_mas[key_x][key_y]='*'
+print("Начальная точка",robot)
+print('Ключ',key)
 
-for i in range(0,len(textt)):
-    line=[]
-    for j in range(0,len(textt[0])):
-        simv=text_mas[i][j]
-        pair=[i,j]
-        if i==key_x and j==key_y:
-            simv='*'
-        elif pair in way1:
-            simv='.'
-        elif pair in way2:
-            simv=','
-        line+=simv
-    rezult.append(line)
+#Ближайший выход
+if abs(key[0]-exit_1[0])+abs(key[1]-exit_1[1])< abs(key[0]-exit_2[0])+abs(key[1]-exit_2[1]):
+    exit_=exit_1
+else:
+    exit_=exit_2
+print("Ближайший выход", exit_) 
 
+#Запись маршрутов в массив
+path_key, l=bfs(field,robot,key)
+print('Длина пути от робота до ключа', l)
+for i in range(len(path_key)):
+    a,b=path_key[i]
+    text_mas[a][b]='.'
+path_end, l=bfs(field,key,exit_)
+print('Длина пути от ключа до ближайшего выхода', l)
+for i in range(len(path_end)):
+    c,d=path_end[i]
+    text_mas[c][d]=','
+
+#Вывод массива в блокнот
 f=open('maze-for-me-done.txt',"w")
-for lines in rezult:
-    stroka=""
-    for index in lines:
-        stroka+=index
-    f.write(stroka +'\n') """
+for l in text_mas:
+    st=""
+    for i in l:
+        st+=i
+    f.write(st +'\n') 
