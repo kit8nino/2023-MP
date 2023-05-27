@@ -2,41 +2,50 @@ import random
 import math
 import string
 
+#print (random.sample(range(1, 18), 4))
+
 # Сортировки
-# 12 
-# 2
+# 16 
+# 7
 # 13
 # 8
 # https://habr.com/en/post/335920/
 
 
-# (12) Counting sort - это алгоритм сортировки, который работает 
-# путем подсчета количества каждого элемента в массиве и затем использует 
-# эту информацию для расположения элементов в отсортированном порядке.
-# В коде выше мы создаем массив count длиной m, где m равно максимальному 
-# значению в массиве arr плюс 1. Затем мы проходим по массиву arr и 
-# увеличиваем значение в соответствующем индексе массива count на 1 для 
-# каждого элемента в arr. Затем мы проходим по массиву count и используем 
-# информацию о количестве каждого элемента для расположения элементов 
-# в отсортированном порядке.
+# (12) Функция msd_sort принимает в качестве аргумента список целых чисел arr, который нужно отсортировать. 
+# Сначала в этой функции находится максимальное значение в списке arr и сохраняется в переменной max_val. 
+# Затем создается переменная exp, которая инициализируется значением 1. Эта переменная будет использоваться для 
+# определения разряда чисел при сортировке.
 
-def counting_sort(arr):
+def msd_sort(arr):
     max_val = max(arr)
-    m = max_val + 1
-    count = [0] * m
+    exp = 1
+    while max_val // exp > 0:
+        counting_sort(arr, exp)
+        exp *= 10
 
-    for a in arr:
-        count[a] += 1
-    i = 0
-    for a in range(m):
-        for c in range(count[a]):
-            arr[i] = a
-            i += 1
-    return arr
+def counting_sort(arr, exp):
+    n = len(arr)
+    output = [0] * n
+    count = [0] * 10
+    for i in range(n):
+        index = arr[i] // exp
+        count[index % 10] += 1
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+    i = n - 1
+    while i >= 0:
+        index = arr[i] // exp
+        output[count[index % 10] - 1] = arr[i]
+        count[index % 10] -= 1
+        i -= 1
+    for i in range(n):
+        arr[i] = output[i]
 
-arr = list(range(100))
-result1 = counting_sort(arr)
-print("1) ", result1)
+ar = list(range(100))
+#ar= [160, 45, 20, 21, 12, 523]
+msd_sort(ar)
+print("1) ", ar)
 print(" ")
         
 # (2) Этот код реализует алгоритм сортировки пузырьком. 
@@ -49,17 +58,18 @@ print(" ")
 # пока все элементы не будут отсортированы. В конце функция возвращает 
 # отсортированный список.
 
-def bubblesort(arr):
-    n = len(arr)
-    for i in range(n):
-        for j in range(0, n-i-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-    return arr
+def gnome_sort(arr):
+    index = 0
+    while index < len(arr):
+        if index == 0 or arr[index - 1] <= arr[index]:
+            index += 1
+        else:
+            arr[index], arr[index - 1] = arr[index - 1], arr[index]
+            index -= 1
 
-arr = [random.uniform(-1, 1) for i in range(100)]
-result2 = bubblesort(arr)
-print("2) ", result2)
+arr = [random.uniform(-1, 1) for _ in range(999)]
+gnome_sort(arr)
+print("2) ", arr)
 print(" ")
 
 
