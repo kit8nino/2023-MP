@@ -1,0 +1,149 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[2]:
+
+
+import random
+
+random.sample(range(1, 18), 4) # выясняем какими алгоритмами производить сортировки
+
+
+# ## 1 сортировка
+# Первой сортировкой является $Most\quad significant\quad digit$
+# $$Most\quad significant\quad digit$$ - На самом деле, некоторая разновидность блочной сортировки. В один блок будут попадать числа с равными k битами. Асимптотика такая же, как и у LSD версии. Реализация очень похожа на блочную сортировку, но проще. В ней используется функция digit, определенная в реализации LSD версии.
+
+# In[9]:
+
+
+import random
+numbers = list(range(1000))  # Создание списка чисел от 0 до 999999
+def radix_sort(arr):
+    # Функция для получения значения i-го разряда числа
+    def get_digit(num, radix, digit_num):
+        return (num // radix ** digit_num) % radix
+    # Функция для выполнения сортировки MSD
+    def msd_sort(arr, radix, digit_num): # msd_sort - рекурсивно разбивает список на корзины и собирает их в отсортированный список
+        if len(arr) <= 1:
+            return arr
+        buckets = [[] for _ in range(radix)]  # Создание корзин для разрядов
+        for num in arr:
+            digit = get_digit(num, radix, digit_num)
+            buckets[digit].append(num)
+        sorted_arr = []
+        for bucket in buckets:
+            sorted_arr.extend(msd_sort(bucket, radix, digit_num - 1))
+        return sorted_arr
+    max_num = max(arr)  # Нахождение максимального числа в списке
+    max_digits = len(str(abs(max_num)))  # Определение количества разрядов
+    return msd_sort(arr, 10, max_digits - 1)  # Вызов функции сортировки MSD
+
+random.shuffle(numbers)  # Перемешивание списка случайным образом
+print(numbers) #Добавил чисто ради сравнения и что бы убедиться что всё работает
+sorted_numbers = radix_sort(numbers)  # Сортировка списка методом MSD
+print()
+print(sorted_numbers)
+
+
+# ## 2 сортировка
+# Второй сортировкой является $Shellsort,\quad сортировка\quad Шелла$
+# $$Shellsort,\quad сортировка\quad Шелла$$ - При сортировке Шелла сначала сравниваются и сортируются между собой значения, стоящие один от другого на некотором расстоянии $d$. После этого процедура повторяется для некоторых меньших значений $d$, а завершается сортировка Шелла упорядочиванием элементов при $d=1$. Эффективность сортировки Шелла в определённых случаях обеспечивается тем, что элементы «быстрее» встают на свои места (в простых методах сортировки, например, пузырьковой, каждая перестановка двух элементов уменьшает количество инверсий в списке максимум на 1, а при сортировке Шелла это число может быть больше)
+
+# In[13]:
+
+
+import random
+numbers = [random.uniform(-1, 1) for _ in range(1000)] # Создаем список из 99999 случайных вещественных чисел в диапазоне [-1, 1]
+def shell_sort(arr):
+    n = len(arr)
+    d = n // 2  # Инициализация шага
+    while d > 0:  # Пока шаг больше нуля
+        for i in range(d, n):
+            temp = arr[i]  # Запоминаем текущий элемент
+            j = i
+            # Пока не достигнуто начало списка и предыдущий элемент больше текущего,
+            # сдвигаем элементы вправо на шаг d
+            while j >= d and arr[j - d] > temp:
+                arr[j] = arr[j - d]
+                j -= d
+            arr[j] = temp  # Вставляем запомненный элемент на правильную позицию
+        d //= 2  # Уменьшаем шаг в два раза
+shell_sort(numbers)
+print(numbers)
+
+
+# ## 3 сортировка
+# Третьей сортировкой является $Selection\quad sort,\quad сортировка выбором$
+# $$Selection\quad sort,\quad сортировка выбором$$ - На очередной итерации будем находить минимум в массиве после текущего элемента и менять его с ним, если надо. Таким образом, после $i$-ой итерации первые $i$ элементов будут стоять на своих местах. Асимптотика: $O(n^2)$ в лучшем, среднем и худшем случае.
+
+# In[17]:
+
+
+import cmath
+birth_day = 29
+birth_month = 1
+r = birth_day / birth_month
+points = []  # Список точек комплексной плоскости
+# Генерация случайных точек внутри окружности
+for i in range(4200):
+    # Генерация случайного комплексного числа с модулем <= r
+    x = (2 * r * (i + 1) / 4200) - r
+    y = cmath.sqrt(r**2 - x**2)  # Вычисление ординаты на окружности
+    point = complex(x, y)
+    points.append(point)
+# Сортировка выполняется выбором. На каждой итерации находим минимальный элемент в оставшейся части списка и меняем его с текущим элементом. p.s.(если это нужно).
+n = len(points)
+for i in range(n - 1):
+    min_idx = i
+    for j in range(i + 1, n):
+        if abs(points[j]) < abs(points[min_idx]):
+            min_idx = j
+    points[i], points[min_idx] = points[min_idx], points[i]
+for point in points:
+    print(point)
+
+
+# ## 4 сортировка
+# Четвертой сортировкой является $Counting\quad  sort,\quad сортировка\quad подсчетом$
+# $$Counting\quad  sort,\quad сортировка\quad подсчетом$$ - Создадим массив размера $r – l$, где $l$ – минимальный, а $r$ – максимальный элемент массива. После этого пройдем по массиву и подсчитаем количество вхождений каждого элемента. Теперь можно пройти по массиву значений и выписать каждое слово столько раз, сколько нужно. Асимптотика (метод описания предельного поведения функций.) – $O(n + r — l)$.
+# #### p.s.
+# Т.к. метод сортировки подсчетом основан на подсчете количества вхождений каждого элемента в массиве и упорядочивании их на основе этих подсчетов. В нашем случае, каждое слово является элементом массива, и мы хотим подсчитать количество вхождений каждого слова в тексте. Именно по этому, пришлось преобразовать слова в числа. ヽ(°□° )ノ
+
+# In[22]:
+
+
+book = 'book.txt'
+with open(book, 'r', encoding='utf-8') as file:
+    text = file.read()
+# Разбиение текста на список слов
+word_list = text.split()
+# Преобразование слов в числа для сортировки подсчетом
+unique_words = set(word_list)  # Уникальные слова
+word_to_num = {word: idx for idx, word in enumerate(unique_words)}
+word_list = [word_to_num[word] for word in word_list]
+def counting_sort(word_list):
+    # Находим минимальное и максимальное слово
+    min_word = min(word_list)
+    max_word = max(word_list)
+
+    # Создаем массив для подсчета вхождений слов
+    counts = [0] * (max_word - min_word + 1)
+
+    # Подсчитываем количество вхождений каждого слова
+    for word in word_list:
+        counts[word - min_word] += 1
+
+    # Выписываем каждое слово столько раз, сколько нужно
+    sorted_words = []
+    for i, count in enumerate(counts):
+        word = min_word + i
+        sorted_words.extend([word] * count)
+
+    return sorted_words
+sorted_words = counting_sort(word_list)
+# Преобразование отсортированных чисел обратно в слова
+num_to_word = {idx: word for word, idx in word_to_num.items()}
+sorted_words = [num_to_word[word] for word in sorted_words]
+for word in sorted_words:
+    print(word)
+
