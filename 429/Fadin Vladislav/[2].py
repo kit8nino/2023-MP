@@ -1,3 +1,6 @@
+"""
+Сделано совместно с Кириллом Утросиным - Kirill-U-S
+"""
 import random
 
 #print(random.sample(range(1, 18), 4))      #11, 4, 10, 3
