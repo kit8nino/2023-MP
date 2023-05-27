@@ -1,4 +1,7 @@
-﻿using System;
+/*
+Совместно с Фадин Владислав (Vortexcrab)
+*/
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
