@@ -88,5 +88,5 @@ maze_str = ''
 for row in maze:
     maze_str += ''.join(row) + '\n'
 
-with open('maze.txt', 'w') as f:
+with open('maze-for-me-done.txt', 'w') as f:
     f.write(maze_str)
