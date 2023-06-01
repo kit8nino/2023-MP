@@ -1,60 +1,132 @@
+# координаты старта, выхода и ключа
+def get_data(maze):
+
+    x_start = int(input('Координаты аватара X: '))
+    y_start = int(input('Координаты аватара Y: '))
+
+    x_key = int(input('Координаты ключа X : '))
+    y_key = int(input('Координаты ключа Y : '))
+    maze[x_key][y_key] = " "
+
+    start = (x_start, y_start)
+    key = (x_key, y_key)
+
+    for Y in range(len(maze[0])):
+        if maze[len(maze) - 1][Y] == " ":
+            end = (len(maze) - 1, Y)
+
+    return start, end, key
 
 
-with open('maze-for-u.txt', 'r') as f:
-    maze = [list(line.strip()) for line in f.readlines()]
+# Проверка соседних клеток
+def available_paths(maze, coord):
+    len_maze_y = len(maze[0])
+    len_maze_x = len(maze)
+    x_coord, y_coord = coord
+    possible_ways = []
+
+    if (x_coord - 1) >= 0 and maze[x_coord - 1][y_coord] == " ":
+        possible_ways.append((x_coord - 1, y_coord))
+
+    if (x_coord + 1) < len_maze_x and maze[x_coord + 1][y_coord] == " ":
+        possible_ways.append((x_coord + 1, y_coord))
+
+    if (y_coord - 1) >= 0 and maze[x_coord][y_coord - 1] == " ":
+        possible_ways.append((x_coord, y_coord - 1))
+
+    if (y_coord + 1) < len_maze_y and maze[x_coord][y_coord + 1] == " ":
+        possible_ways.append((x_coord, y_coord + 1))
+
+    return possible_ways
 
 
-for i in range(len(maze)):
-    for j in range(len(maze[0])):
-        if maze[i][j] == "*":
-            key = (i, j)
-            print(key)
-            maze[i][j] = " "
-            break
-
-
-for Y in range(len(maze[0])):
-    if maze[0][Y] == " ":
-        start = (0, Y)
-        break
-
-
+# Поиск в глубину
 def dfs(start, end, maze):
-    LenMazeY = len(maze[0])
-    LenMazeX = len(maze)
     stack = [start]
-    visited = [start]
+    visited = {start}
+    paths = {start: []}
+
     while stack:
         current_pos = stack.pop()
         if current_pos == end:
-            return visited
+            return paths[current_pos]
+        # Проверяем все возможные направления
+        for neighbor in available_paths(maze, current_pos):
+            if neighbor not in visited:
+                stack.append(neighbor)
+                visited.add(neighbor)
+                paths[neighbor] = paths[current_pos] + [current_pos]
 
-        coordsX, coordsY = current_pos
-
-        # проверяем все возможные направления движения
-        if (coordsX - 1) >= 0 and maze[coordsX - 1][coordsY] == " " and (coordsX - 1, coordsY) not in visited:
-            stack.append((coordsX - 1, coordsY))
-            visited.append((coordsX - 1, coordsY))
-
-        if (coordsX + 1) < LenMazeX and maze[coordsX + 1][coordsY] == " " and (coordsX + 1, coordsY) not in visited:
-            stack.append((coordsX + 1, coordsY))
-            visited.append((coordsX + 1, coordsY))
-
-        if (coordsY - 1) >= 0 and maze[coordsX][coordsY - 1] == " " and (coordsX, coordsY - 1) not in visited:
-            stack.append((coordsX, coordsY - 1))
-            visited.append((coordsX, coordsY - 1))
-
-        if (coordsY + 1) < LenMazeY and maze[coordsX][coordsY + 1] == " " and (coordsX, coordsY + 1) not in visited:
-            stack.append((coordsX, coordsY + 1))
-            visited.append((coordsX, coordsY + 1))
     return None
 
 
-pathToKey = dfs(start, key, maze)
+# Алгоритм А*
+def heuristic(current, end):
+    return abs(current[0] - end[0]) + abs(current[1] - end[1])
 
-for coords in pathToKey:
-    x, y = coords
-    maze[x][y] = "."
+
+def a_star(start, end, maze):
+    open_list = [start]
+    closed_list = []
+    came_from = {}
+    g_score = {start: 0}
+    f_score = {start: heuristic(start, end)}
+
+    while open_list:
+        current = min(open_list, key=lambda x: f_score[x])
+        if current == end:
+            path = [end]
+            while current in came_from:
+                current = came_from[current]
+                path.append(current)
+            path.reverse()
+            return path
+
+        open_list.remove(current)
+        closed_list.append(current)
+
+        for neighbor in available_paths(maze, current):
+            if neighbor in closed_list:
+                continue
+            preliminary_g_score = g_score[current] + 1
+            if neighbor not in open_list or preliminary_g_score < g_score[neighbor]:
+                came_from[neighbor] = current
+                g_score[neighbor] = preliminary_g_score
+                f_score[neighbor] = preliminary_g_score + heuristic(neighbor, end)
+                if neighbor not in open_list:
+                    open_list.append(neighbor)
+
+    return open_list
+
+
+# Построение пути
+def create_path(path_to_key, path_to_exit, key):
+    for coords in path_to_key:
+        x, y = coords
+        maze[x][y] = "."
+
+    for coords in path_to_exit:
+        x, y = coords
+        if maze[x][y] == ".":
+            maze[x][y] = ";"
+        else:
+            maze[x][y] = ","
+
+    maze[key[0]][key[1]] = '*'
+
+
+# Получение данных
+
+# преобразуем лабиринт в матрицу
+with open('maze-for-u.txt', 'r') as f:
+    maze = [list(line.strip()) for line in f.readlines()]
+
+start, end, key = get_data(maze)
+path_to_key = dfs(start, key, maze)
+path_to_exit = a_star(key, end, maze)
+
+create_path(path_to_key, path_to_exit, key)
+
 
 with open('maze-for-me-done.txt', 'w') as f:
     for line in maze:

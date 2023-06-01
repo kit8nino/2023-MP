@@ -5,21 +5,19 @@
 import random as rnd
 import numpy as np
 
-
 arr_N = []
 arr_R = []
 arr_C = []
 arr_C_abs = []
 
 # №1 список целых чисел от 0 до 999999 (ну почти)
-for i in range(1000):
+for i in range(1000000):
     arr_N.append(i)
 rnd.shuffle(arr_N)
 
 # №2 список из (почти) 99999 случайных вещественных чисел в диапазоне [-1, 1]
-for i in range(-1000, 1000):
-    arr_R.append(i / 1000)
-rnd.shuffle(arr_R)
+for _ in range(99999 + 1):
+    arr_R.append(rnd.uniform(-1, 1))
 
 # №3 42000 разных точки комплексной плоскости, лежащие внутри окружности радиуса r
 
@@ -54,35 +52,45 @@ def insertion_sort(arr):
         key = arr[i]
         j = i - 1
         while j >= 0 and key < arr[j]:
-            arr[j+1] = arr[j]
+            arr[j + 1] = arr[j]
             j -= 1
-            arr[j+1] = key
+            arr[j + 1] = key
     return arr
 
 
-# Быстрая сортировка
-def quick_sort(arr, low, high):
-    if low >= high:
-        return
+# Быстрая сортировка (изменена для строк)
+def quicksort(words):
+    if len(words) <= 1:
+        return words
     else:
-        rnd_start = rnd.choice(arr[low:high + 1])
-        i = low
-        j = high
-        while i <= j:
-            while arr[i] > rnd_start:
-                i += 1
-            while arr[j] < rnd_start:
-                j -= 1
-            if i <= j:
-                arr[i], arr[j] = arr[j], arr[i]
-                i += 1
-                j -= 1
-                quick_sort(arr, low, j)
-                quick_sort(arr, i, high)
+        pivot = words[0]
+        less_alpha = []
+        greater_alpha = []
+        equal_alpha = []
+        less_len = []
+        greater_len = []
+        equal_len = []
+        for word in words:
+            if word < pivot:
+                less_alpha.append(word)
+            elif word > pivot:
+                greater_alpha.append(word)
+            else:
+                equal_alpha.append(word)
+        for word in equal_alpha:
+            if len(word) < len(pivot):
+                less_len.append(word)  # Добавляем слова, длина которых меньше начального
+            elif len(word) > len(pivot):
+                greater_len.append(word)  # Добавляем слова, длина которых больше начального
+            else:
+                equal_len.append(word)  # Слова равной длины
+
+        return quicksort(less_alpha) + quicksort(greater_alpha) + quicksort(less_len) + equal_len + quicksort(
+            greater_len)
 
 
 # Битонная сортировка
-up = True   # Флаг указывает на направление сортировки
+up = True  # Флаг указывает на направление сортировки
 
 
 def bitonic_sort(arr, up):
@@ -125,4 +133,36 @@ def bitonic_compare(arr, up):
         if (arr[i] > arr[i + dist]) == up:
             arr[i], arr[i + dist] = arr[i + dist], arr[i]
 
-print(bitonic_sort(arr_N))
+
+# сортировка деревом
+def binary_tree_sort(arr):
+    node = None
+    for value in arr:  # проходится по каждому элементу и создаем дерево
+        node = insert_node(node, value)
+    sorted_list = []
+    traverse_tree(node, sorted_list)
+    return sorted_list
+
+
+def insert_node(node, value):
+    # Создаем родителя
+    if node is None:
+        return {'value': value, 'left': None, 'right': None}
+    # Если значение меньше значения родителя, добавляем в левую ветку
+    if value < node['value']:
+        node['left'] = insert_node(node['left'], value)
+    else:
+        node['right'] = insert_node(node['right'], value)
+    return node
+
+
+def traverse_tree(node, sorted_list):
+    if node is None:
+        return
+    # рекурсивно проходимся по элементам, собирая сначала левые
+    traverse_tree(node['left'], sorted_list)
+    sorted_list.append(node['value'])
+    traverse_tree(node['right'], sorted_list)
+
+
+print(binary_tree_sort(arr_R))
