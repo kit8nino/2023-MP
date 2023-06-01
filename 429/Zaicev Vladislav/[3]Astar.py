@@ -1,5 +1,5 @@
 import numpy as np
-with open("maze-for-u.txt","r") as file:
+with open("maze.txt","r") as file:
     maze = []
     for line in file:
         stroka = []
@@ -33,7 +33,7 @@ def manhattan_distance(StartPoint, FinishPoint):
     x2,y2 = GetCoord(FinishPoint)
     return abs(x1 - x2) + abs(y1 - y2)
 
-def a_star(StartPoint, FinishPoint):
+def a_star(StartPoint, FinishPoint, g = 1, h = 1):
     not_visited = {StartPoint}
     
     visited = []
@@ -66,7 +66,7 @@ def a_star(StartPoint, FinishPoint):
                 if distance < g_score.get((new_x, new_y), 9999):
                     came_from[(new_x, new_y)] = (x, y)
                     g_score[(new_x, new_y)] = distance
-                    f_score[(new_x, new_y)] = distance + manhattan_distance(new_point, FinishPoint)
+                    f_score[(new_x, new_y)] = distance * g + manhattan_distance(new_point, FinishPoint) * h
                     if (new_x, new_y) not in not_visited:
                         not_visited.add((new_x, new_y))
 
