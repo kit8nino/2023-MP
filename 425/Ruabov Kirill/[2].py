@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import numpy as np
@@ -59,38 +59,30 @@ print("сортировка выбором:\n",select_sort(real_num))
 
 # быстрая сортировка
 def quick_sort(array):
-    num = array[len(array) // 2] 
-    a,b,c = [], [], [] #списки для разделения массива
+    num = array[len(array)//2] 
+    a,b,c = [], [], [] 
     
-    for point in array:
-        if abs(point) < abs(pivot):
-            a.append(point)
-        elif abs(point) == abs(pivot): # на случай существования такой же точки
-            b.append(point)
+    for i in array:
+        if abs(i) < abs(num):
+            a.append(i)
+        elif abs(i) == abs(num): 
+            b.append(i)
         else:
-            c.append(point)
+            c.append(i)
     
     return quick_sort(a) + b + quick_sort(c) if a and c else a + b + c 
-
-im_num1 = quicksort(im_num)
-print("быстрая сортировка:\n",im_num1 )
+print("быстрая сортировка:\n", quick_sort(im_num))
 
 # сортировка вставкой
 
 def insert_sort(array):
     for i in range(1, len(array)):
-        temp = array[i]
+        t = array[i]
         j = i - 1
-        while (j >= 0 and temp < array[j]):
+        while (j >= 0 and t < array[j]):
             array[j + 1] = array[j]
             j = j - 1
         array[j + 1] = t
 array=text        
 print("сортировка вставкой:\n",insert_sort(array))
-
-
-# In[ ]:
-
-
-
 
