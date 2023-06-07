@@ -1,0 +1,90 @@
+import math as mt
+import matplotlib.pyplot as plt
+import math as mt
+import csv
+import numpy as np
+import random
+#№1(список целых чисел от 0 до 999999)(quick sort)
+n=100
+numbers=list(range(n))
+random.shuffle(numbers)
+print('Неотсортированный список = ',numbers)
+def q_sort(numbers):
+    if len(numbers)<=1:
+        return numbers
+    elem=numbers[0]
+    left = list(filter(lambda x:x<elem,numbers))
+    center = [i for i in numbers if i==elem]
+    right = list(filter(lambda x:x>elem,numbers))
+    return q_sort(left)+ center +q_sort(right)
+print('Отсортировали = ',q_sort(numbers))
+print('/n')
+
+#№2(список из 99999 случайных вещественных чисел в диапазоне [-1, 1])(Shell's sort)
+numbers2=[random.uniform(-1, 1) for numbers2 in range(n)]
+print('Неотсортированный список = ',numbers2)
+print('\n')
+def shellSort(numbers2):
+    n = len(numbers2)
+    k = int(math.log2(n))
+    interval = 2**k -1
+    while interval > 0:
+        for i in range(interval, n):
+            temp = array[i]
+            j = i
+            while j >= interval and array[j - interval] > temp:
+                array[j] = array[j - interval]
+                j -= interval
+            array[j] = temp
+        k -= 1
+        interval = 2**k -1
+    return array
+print('Отсортировали = ',numbers2)
+#№3(42000 разных точек комплексной плоскости,лежащей внутри окружности)(Selection sort)
+count = 42000
+birth_day=15
+birth_month=7
+R=birth_day/birth_month
+r=[random.uniform(0, R) for r in range(count)]
+phi=[random.uniform(0,2*mt.pi) for phi in range(count)]
+a=[]
+compl = [random.uniform(0, R)]
+for i in range(count):
+    a.append(r[i]*mt.cos(phi[i]))
+b=[]
+for i in range(count):
+    b.append(r[i]*mt.sin(phi[i]))
+c=[]
+for i in range(count):
+    c.append(complex(a[i],b[i]))
+modul=[]
+for i in range(count):
+    modul.append(mt.sqrt((a[i])**2+(b[i])**2))
+
+def selectionSort(modul):
+    for i in range(len(modul)-1):
+        min_idx = i
+        for idx in range(i + 1, len(modul)-1):
+            if modul[idx] < modul[min_idx]:
+                min_idx = idx
+        modul[i], modul[min_idx] = modul[min_idx], modul[i]
+    return modul
+print('Selection sort',selectionSort(modul))
+
+#№4(отрывок из книги разбитый в список по словам.)(insert_sort)
+file =open("C:/Users/rusga/Downloads/Метро2033.txt",'r')
+file.readline
+arr=file.read().split()   
+def insert_sort(arr):
+    for i in range(1, len(arr)):
+        current = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] >current: 
+            arr[j+1] = arr[j]
+            j -= 1
+
+        arr[j+1] = current
+
+    return arr
+ar=insert_sort(arr)
+print(ar," -сортировка вставкой")
