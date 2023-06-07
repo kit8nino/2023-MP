@@ -1,0 +1,142 @@
+from datetime import datetime
+import queue  
+# свои ФИО, число, месяц, год рождения в виде кортежа;
+
+my_ID = ("Avtaev Stepan",15,2,2002)
+
+#предметы в школьном аттестате
+
+school_items = {"Rus leng":4,
+                "literature":4,
+                "foreign language":5,
+                "Math":5,
+                "Geometry":4,
+                "Russian History":4,
+                "General history":5,
+                "social science":4,
+                "geography":4,
+                "biology":5,
+                "Chemistry":4,
+                "physics":5,
+                "astronomy":5,
+                "Informatics":4,
+                "life safety fundamentals":5,
+                "physical directoin":5
+               }
+close_relatives = ["Лера 2006","Альфия 1970","Асхаб 1000000 BC)) ","Илья 1965","Гульнара 1970","Денис 2003"]
+
+# имя котика
+
+cotic_name = "Пуня"
+
+# №1-средняя оценка аттестата
+
+average_rating = sum(school_items.values()) / len(school_items.values()) 
+
+print("Моя средняя оценка по аттестату " + str(average_rating),"\n")
+
+# №2-вывести уникальные имена среди своих родственников (включая свое);
+
+unique_names = []
+
+for name in close_relatives:
+    if name in unique_names:
+        continue
+    unique_names.append(name)
+
+print("уникальные имена среди своих родственников ",name, "\n")
+
+# №3 общая длина всех названий предметов;
+
+dlinna = 0
+
+for i in list(school_items):
+    dlinna += len(i)
+
+print("Длинна всех названий предметов ",dlinna,"\n")
+
+# №4 уникальные буквы в названиях предметов;
+
+s = set()
+for key in school_items:
+    s= s|set(key)
+print("Уникальные буквы в названий предметов",s,'\n')
+# №5 имя вашей домашней пушистой кивы в бинарном виде;
+
+st = cotic_name
+
+print("Имя кота",' '.join(format(ord(x), 'b') for x in st),"\n")
+# №6отсортированный по алфавиту (в обратном порядке) список родственников;
+print("Отсортированный список родственников",sorted(close_relatives,reverse = True))
+# №7 количество дней от вашей даты рождения до текущей даты (должна быть всегда актуальной);
+datetime2 = datetime.now()  
+datetime2 = datetime2.strftime("%Y-%m-%d %H:%M")  
+dateFormatter = '%Y-%m-%d %H:%M' 
+dateString = "2002-07-15 23:45"
+
+spisok_start_date = datetime.strptime(dateString, dateFormatter) 
+datetime2 = datetime.strptime(datetime2, dateFormatter) 
+timedelta =  datetime2 - spisok_start_date
+print("количество дней от вашей даты рождения до текущей даты",timedelta)
+#№8
+#FIFO очередь, в которую можно добавлять предметы по вводимому с клавиатуры индексу (до команды остановки),
+#после введения - вывести все
+
+
+
+#создаем очередь
+q=queue.Queue()
+#заполняем очередь ключами
+for i in list(school_items):
+    q.put(i)
+print('\n','№8  ВВЕДИ предмет ','\n')
+while True:
+    subject=input('введите Enter,чтобы прекратить ввод: ')
+    if subject=='':
+        break
+    else:
+        q.put(subject)
+print('\n','Выввод всех предметов:')
+while True:
+    print(q.get())
+    if q.empty()==True:
+        break
+print('\n')
+# №9
+print("#9 по введеному индексу, поменять имя в отсортированном списке родственников на имя ацтекского правителя")
+print(" под номером, получаемым из вашей даты рождения: number = (day + month**2 + year)%21+ 1;")
+number = (my_ID[1]+my_ID[2]**2)%21+1
+t = ['Tenoch', 'Acamapichtli', 'Huitzilihuitl', 'Chimalpopoca', 'Xihuitl Temoc', 'Itzcoatl', 'Moctezuma I', 'Atotoztli', 'Axayacatl', 'Tizoc', 'Ahuitzotl', 'Moctezuma II', 'Cuitláhuac', 'Cuauhtémoc', 'Tlacotzin', 'Motelchiuhtzin', 'Xochiquentzin', 'Huanitzin', 'Tehuetzquititzin', 'Cecetzin', 'Cipac']
+j = int(input('введите индекс для списка:' ))
+while j<=0 or j>= len(close_relatives[j]):
+    j = int(input('введите индекс для списка:' ))
+else:
+    print('\n','Имя ',close_relatives[j],' Теперь ',end='')
+    close_relatives[j]=t[number-1]
+print(close_relatives[j])
+# №10
+print('создать связный список, например, как словарь, где ключ - имя родственника, а значение (ссылка на следующий элемент) - индекс \nследующего имени по исходному списку, упорядоченному по их (родственников) годам рождения), исходный список при этом должен остаться неизменным;')
+close_relatives_list = {"Асхаб":1 ,"Илья":2,"Альфия":3,"Гульнара":4,"Денис":5,"Лера":0}
+print(close_relatives_list)
+# №11
+print('написать функцию-генератор, свой вариант определяется как number = len("ФИО") * len (family_names) % 4:аликвотной последовательности;последовательности Сильвестра;числа трибоначчи;числа Леонардо.')
+n = len(my_ID)*len(close_relatives)%4
+print(n," - В математике аликвотная последовательность — это рекурсивная последовательность, в которой каждый член является суммой собственных делителей предыдущего члена.")
+def div(n):
+    for i in range(1,n):
+        if n % i==0:
+            yield i
+n=int(input('Введите значение числа n ,с которого начнётся последовательность n= '))
+count=0 #счётчик 
+alikvota=[]
+
+while n!=0:
+    a=0
+    for i in div(n):
+        a += i
+    n=a
+    alikvota.append(a)
+    count+=1
+    if count==500:
+        break
+print('\n','Аликвотная последовательность: ',alikvota)
